@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('publicaciones', function (Blueprint $table) {
+            $table->integer('id', true);
+            $table->string('titulo', 200);
+            $table->string('slug', 200)->unique('slug');
+            $table->text('resumen')->nullable();
+            $table->longText('contenido')->nullable();
+            $table->string('imagen_destacada')->nullable();
+            $table->integer('categoria_id')->index('idx_publicaciones_categoria');
+            $table->string('autor', 100)->nullable();
+            $table->dateTime('fecha_publicacion')->nullable()->useCurrent()->index('idx_publicaciones_fecha');
+            $table->enum('estado', ['borrador', 'publicado', 'archivado'])->nullable()->default('borrador')->index('idx_publicaciones_estado');
+            $table->boolean('destacado')->nullable()->default(false);
+            $table->integer('visitas')->nullable()->default(0);
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_actualizacion')->useCurrentOnUpdate()->useCurrent();
+
+            $table->fullText(['titulo', 'resumen', 'contenido'], 'titulo');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('publicaciones');
+    }
+};

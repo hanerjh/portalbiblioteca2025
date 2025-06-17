@@ -9,6 +9,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    // deshabilitar los campos por defecto, y dejarlo personalizado update-at y create-at
+     public $timestamps = false;
+
     public function up(): void
     {
         Schema::create('publicaciones', function (Blueprint $table) {
@@ -24,8 +27,8 @@ return new class extends Migration
             $table->enum('estado', ['borrador', 'publicado', 'archivado'])->nullable()->default('borrador')->index('idx_publicaciones_estado');
             $table->boolean('destacado')->nullable()->default(false);
             $table->integer('visitas')->nullable()->default(0);
-            $table->timestamp('fecha_creacion')->useCurrent();
-            $table->timestamp('fecha_actualizacion')->useCurrentOnUpdate()->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
 
             $table->fullText(['titulo', 'resumen', 'contenido'], 'titulo');
         });

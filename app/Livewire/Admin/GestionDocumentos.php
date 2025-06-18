@@ -29,7 +29,7 @@ class GestionDocumentos extends Component
             ->where('titulo', 'like', '%' . $this->search . '%')
             ->latest()
             ->paginate(10);
-            
+        //dd($documentos);
         $categorias = CategoriaDocumento::where('activa', true)->get();
 
         return view('livewire.admin.gestion-documentos', [
@@ -63,7 +63,7 @@ class GestionDocumentos extends Component
             'descripcion' => 'nullable|string',
         ];
 
-        // Solo requerir archivo al crear
+        // verificamos si se va a registrar un documento nuevo o se va a realizar una actualización
         if (!$this->documento_id) {
             $rules['archivo'] = 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
         } else {

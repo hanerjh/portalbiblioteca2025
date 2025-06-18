@@ -21,10 +21,13 @@ return new class extends Migration
             $table->text('resumen')->nullable();
             $table->longText('contenido')->nullable();
             $table->string('imagen_destacada')->nullable();
+            $table->string('url_video')->nullable();
+            $table->string('url_audio')->nullable();
+            $table->string('qr_code')->nullable();
             $table->integer('categoria_id')->index('idx_publicaciones_categoria');
             $table->string('autor', 100)->nullable();
             $table->dateTime('fecha_publicacion')->nullable()->useCurrent()->index('idx_publicaciones_fecha');
-            $table->enum('estado', ['borrador', 'publicado', 'archivado'])->nullable()->default('borrador')->index('idx_publicaciones_estado');
+            $table->enum('estado', ['Borrador', 'Publicado', 'Archivado'])->nullable()->default('Borrador')->index('idx_publicaciones_estado');
             $table->boolean('destacado')->nullable()->default(false);
             $table->integer('visitas')->nullable()->default(0);
             $table->timestamp('created_at')->useCurrent();

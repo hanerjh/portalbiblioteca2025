@@ -9,16 +9,17 @@ use Livewire\WithPagination;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Log;
+use Livewire\WithFileUploads;
 
 use function Laravel\Prompts\alert;
 
 class GestionPublicaciones extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     // Propiedades del modelo
-    public $titulo, $slug, $resumen, $contenido, $categoria_id, $estado, $publicacion_id, $destacado;
-
+    public $titulo, $slug, $resumen, $contenido, $categoria_id,$categoria, $estado, $publicacion_id, $destacado, $label_destacado="Inactivo",$archivo,$archivo_ruta;
+    public $video, $audio;
     // Propiedades de la UI
     public $isOpen = false;
     public $search = '';
@@ -63,7 +64,7 @@ class GestionPublicaciones extends Component
     {
         $this->reset(['titulo', 'slug', 'resumen', 'contenido', 'categoria_id', 'publicacion_id']);
         $this->estado = 'borrador';
-        $this->destacado = true;
+        $this->destacado = false;
     }
 
     public function actualizarTitulo()
@@ -77,10 +78,10 @@ class GestionPublicaciones extends Component
     public function store()
     {
            // Solo requerir archivo al crear
-        if (!$this->documento_id) {
-            $validate_archivo['archivo'] = 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
+        if (!$this->publicacion_id) {
+            $validate_archivo = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
         } else {
-            $validate_archivo['archivo'] = 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
+            $validate_archivo = 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
         }
 
         $this->validate([
@@ -91,18 +92,28 @@ class GestionPublicaciones extends Component
             'contenido' => 'nullable|string',
             'estado' => 'required|in:borrador,publicado,archivado', 
             'destacado' => 'required|boolean',
-            $validate_archivo,
+            'archivo'=>$validate_archivo,
         ]);
 
-      
+        
+        
+
+       if ($this->archivo) {
+            //$data['archivo_nombre'] = $this->archivo->getClientOriginalName();
+            $this->archivo_ruta = $this->archivo->store('upload_publicaciones', 'public');
+            //$data['archivo_tamaño'] = $this->archivo->getSize();
+            //$data['tipo_mime'] = $this->archivo->getMimeType();
+        }
 
         Publicacion::updateOrCreate(['id' => $this->publicacion_id], [
             'titulo' => $this->titulo,
             'slug' => $this->slug,
             'resumen' => $this->resumen,
             'contenido' => $this->contenido,
+            'video' => $this->video,
+            'audio' => $this->audio,
             'categoria_id' => $this->categoria_id,
-            'imagen_destacada' => $this->archivo,
+            'imagen_destacada' => $this->archivo_ruta,
             'destacado' => $this->destacado,
             'estado' => $this->estado,
         ]);
@@ -133,5 +144,19 @@ class GestionPublicaciones extends Component
     {
         Publicacion::find($id)->delete();
         session()->flash('message', 'Publicación eliminada exitosamente.');
+    }
+
+    public function chage_destacado(){
+        $this->label_destacado = 'Inactivo';
+
+        // $this->destacado += !$this->destacado;
+         if($this->destacado==true){ 
+           
+            $this->label_destacado = 'Activo';
+            
+         }
+         else{
+            $this->label_destacado = 'Inactivo';
+         }
     }
 }

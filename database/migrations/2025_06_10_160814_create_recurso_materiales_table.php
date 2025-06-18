@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('recurso_materiales', function (Blueprint $table) {
             $table->integer('recurso_id');
             $table->integer('material_id')->index('material_id');
-            $table->timestamp('fecha_vinculacion')->useCurrent();
-
             $table->primary(['recurso_id', 'material_id']);
+            $table->timestamp('fecha_vinculacion')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
+
         });
     }
 

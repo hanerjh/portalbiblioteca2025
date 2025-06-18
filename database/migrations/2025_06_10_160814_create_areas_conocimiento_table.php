@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('area_padre_id')->nullable()->index('area_padre_id');
             $table->text('descripcion')->nullable();
             $table->boolean('activa')->nullable()->default(true);
+             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

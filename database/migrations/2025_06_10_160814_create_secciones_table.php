@@ -20,8 +20,8 @@ return new class extends Migration
             $table->longText('contenido')->nullable();
             $table->string('template', 50)->nullable()->default('default');
             $table->boolean('activa')->nullable()->default(true);
-            $table->timestamp('fecha_creacion')->useCurrent();
-            $table->timestamp('fecha_actualizacion')->useCurrentOnUpdate()->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

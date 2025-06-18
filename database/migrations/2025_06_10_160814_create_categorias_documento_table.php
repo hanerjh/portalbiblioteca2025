@@ -17,7 +17,8 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->string('icono', 50)->nullable();
             $table->boolean('activa')->nullable()->default(true);
-            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

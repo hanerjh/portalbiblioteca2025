@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('url', 500)->nullable();
             $table->integer('categoria_id')->index('idx_recursos_categoria');
             $table->string('proveedor', 150)->nullable();
-            $table->enum('tipo_acceso', ['libre', 'restringido', 'suscripcion'])->nullable()->default('libre')->index('idx_recursos_acceso');
-            $table->string('usuario_acceso', 100)->nullable();
-            $table->string('password_acceso', 100)->nullable();
+            $table->enum('tipo_acceso', ['Acceso abierto', 'restringido', 'suscripcion'])->nullable()->default('Acceso abierto')->index('idx_recursos_acceso');
             $table->text('instrucciones_acceso')->nullable();
             $table->date('fecha_suscripcion_inicio')->nullable();
             $table->date('fecha_suscripcion_fin')->nullable();
@@ -30,8 +28,8 @@ return new class extends Migration
             $table->boolean('activo')->nullable()->default(true);
             $table->boolean('destacado')->nullable()->default(false);
             $table->integer('visitas')->nullable()->default(0);
-            $table->timestamp('fecha_creacion')->useCurrent();
-            $table->timestamp('fecha_actualizacion')->useCurrentOnUpdate()->useCurrent();
+             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
 
             $table->fullText(['titulo', 'descripcion'], 'titulo');
         });

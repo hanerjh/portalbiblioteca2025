@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('numero_documento', 50)->nullable();
             $table->boolean('publico')->nullable()->default(true);
             $table->integer('descargas')->nullable()->default(0);
-            $table->timestamp('fecha_creacion')->useCurrent();
-            $table->timestamp('fecha_actualizacion')->useCurrentOnUpdate()->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
 
             $table->fullText(['titulo', 'descripcion'], 'titulo');
         });

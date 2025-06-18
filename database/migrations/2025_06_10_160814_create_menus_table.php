@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('posicion', 50)->nullable()->default('header');
             $table->boolean('activo')->nullable()->default(true);
             $table->integer('orden')->nullable()->default(0);
-            $table->timestamp('fecha_creacion')->useCurrent();
-            $table->timestamp('fecha_actualizacion')->useCurrentOnUpdate()->useCurrent();
+             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

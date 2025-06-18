@@ -22,7 +22,8 @@ return new class extends Migration
             $table->integer('orden')->nullable()->default(0);
             $table->boolean('activo')->nullable()->default(true);
             $table->boolean('target_blank')->nullable()->default(false);
-            $table->timestamp('fecha_creacion')->useCurrent();
+             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

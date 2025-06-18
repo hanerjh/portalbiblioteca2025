@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nombre', 50);
             $table->text('descripcion')->nullable();
             $table->boolean('activo')->nullable()->default(true);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

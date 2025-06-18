@@ -23,12 +23,12 @@ return new class extends Migration
             $table->enum('nivel_dificultad', ['basico', 'intermedio', 'avanzado'])->nullable()->default('basico');
             $table->string('idioma', 10)->nullable()->default('es');
             $table->string('autor', 100)->nullable();
-            $table->enum('estado', ['borrador', 'publicado', 'archivado'])->nullable()->default('borrador')->index('idx_materiales_estado');
+            $table->enum('estado', ['Borrador', 'Publicado', 'Archivado'])->nullable()->default('Borrador')->index('idx_materiales_estado');
             $table->boolean('destacado')->nullable()->default(false);
             $table->integer('orden_visualizacion')->nullable()->default(0);
             $table->integer('visualizaciones')->nullable()->default(0);
-            $table->timestamp('fecha_creacion')->useCurrent();
-            $table->timestamp('fecha_actualizacion')->useCurrentOnUpdate()->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
 
             $table->fullText(['titulo', 'descripcion'], 'titulo');
         });

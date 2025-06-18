@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('nombre', 150);
             $table->string('codigo', 20)->nullable();
             $table->string('facultad', 100)->nullable();
-            $table->enum('nivel', ['pregrado', 'posgrado', 'maestria', 'doctorado'])->nullable();
+            $table->enum('nivel', ['Pregrado', 'Posgrado', 'Maestria', 'Doctorado'])->nullable();
             $table->boolean('activo')->nullable()->default(true);
-            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

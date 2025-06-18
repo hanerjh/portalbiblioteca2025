@@ -64,23 +64,6 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
-                            <label for="titulo" class="form-label">Título</label>
-                            <input type="text" wire:model="titulo" wire:keyup="actualizarTitulo" class="form-control" id="titulo">
-                            @error('titulo') <span class="text-danger small">{{ $message }}</span>@enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="slug" class="form-label">Slug (URL amigable)</label>
-                            <input type="text" wire:model="slug" class="form-control bg-light" id="slug" readonly>
-                            @error('slug') <span class="text-danger small">{{ $message }}</span>@enderror
-                        </div>
-                            <div class="mb-3">
-                            <label for="archivo" class="form-label">Archivo</label>
-                            <input type="file" wire:model="archivo" class="form-control" id="archivo">
-                             <div wire:loading wire:target="archivo" class="text-primary small mt-1">Cargando...</div>
-                            @if($publicacion_id) <small class="form-text text-muted">Dejar en blanco para no modificar el archivo actual.</small> @endif
-                            @error('archivo') <span class="text-danger small">{{ $message }}</span> @enderror
-                        </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="categoria_id" class="form-label">Categoría</label>
@@ -92,17 +75,30 @@
                                 </select>
                                 @error('categoria_id') <span class="text-danger small">{{ $message }}</span>@enderror
                             </div>
-                             <div class="col-md-6 mb-3">
-                                <label for="estado" class="form-label">Estado</label>
-                                <select wire:model="estado" class="form-select" id="estado">
-                                    <option value="borrador">Borrador</option>
-                                    <option value="publicado">Publicado</option>
-                                    <option value="archivado">Archivado</option>
-                                </select>
-                                @error('estado') <span class="text-danger small">{{ $message }}</span>@enderror
+                         <div class="col-md-6 mb-3">
+
+                                <label for="slug" class="form-label">Slug (URL amigable)</label>
+                                <input type="text" wire:model="slug" class="form-control bg-light" id="slug" readonly>
+                                @error('slug') <span class="text-danger small">{{ $message }}</span>@enderror
+                        
                             </div>
+                     
                         </div>
                         <div class="mb-3">
+                            <label for="titulo" class="form-label">Título</label>
+                            <input type="text" wire:model="titulo" wire:keyup="actualizarTitulo" class="form-control" id="titulo">
+                            @error('titulo') <span class="text-danger small">{{ $message }}</span>@enderror
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="archivo" class="form-label">Archivo</label>
+                            <input type="file" wire:model="archivo" class="form-control" id="archivo">
+                             <div wire:loading wire:target="archivo" class="text-primary small mt-1">Cargando...</div>
+                            @if($publicacion_id) <small class="form-text text-muted">Dejar en blanco para no modificar el archivo actual.</small> @endif
+                            @error('archivo') <span class="text-danger small">{{ $message }}</span> @enderror
+                        </div>
+                         
+             <div class="mb-3">
                             <label for="resumen" class="form-label">Resumen</label>
                             <textarea wire:model="resumen" class="form-control" id="resumen" rows="3"></textarea>
                             @error('resumen') <span class="text-danger small">{{ $message }}</span>@enderror
@@ -112,13 +108,55 @@
                             <textarea wire:model="contenido" class="form-control" id="contenido" rows="6"></textarea>
                              @error('contenido') <span class="text-danger small">{{ $message }}</span>@enderror
                         </div>
-                         <div class="col-md-6 mb-3">
-                                <label class="form-label">Destacado</label>
+     
+                        <div class="row">
+                             <div class="col-md-6 mb-3">
+                                <label for="estado" class="form-label">Estado</label>
+                                <select wire:model="estado" class="form-select" id="estado">
+                                    <option value="borrador">Borrador</option>
+                                    <option value="publicado">Publicado</option>
+                                    <option value="archivado">Archivado</option>
+                                </select>
+                                @error('estado') <span class="text-danger small">{{ $message }}</span>@enderror
+                            </div>
+                               <div class="col-md-6 mb-3">
+                                <label class="form-label">Publicación Destacado</label>
                                 <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" role="switch" id="activaSwitch" wire:model="destacado">
-                                  <label class="form-check-label" for="activaSwitch">{{ $destacado ? 'Activa' : 'Inactiva' }}</label>
+                                    
+                                    <input class="form-check-input" type="checkbox" role="switch" id="activaSwitch" wire:model="destacado" wire:click="chage_destacado">
+                                    <label class="form-check-label" for="activaSwitch">{{ $label_destacado ?? 'Inactiva' }}</label>
                                 </div>
-                             </div>
+                        </div>
+                        </div>
+
+                        <!-- inicio acordion para ocultar campos url de videos y audio-->
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item ">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button bg-primary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Insertar enlace de medios videos o audio
+                                    </button>
+                                </h2>
+
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                <div class="mb-3">
+                                    <label for="video" class="form-label">URL Video</label>
+                                    <input type="url" wire:model="video" class="form-control" id="video">
+                                    @error('video') <span class="text-danger small">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="audio" class="form-label">URL Audio</label>
+                                    <input type="text" wire:model="audio" class="form-control" id="audio">
+                                    @error('audio') <span class="text-danger small">{{ $message }}</span>@enderror
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>             
+               <!-- fin acordion para ocultar campos url de videos y audio--> 
+                         
                     </form>
                 </div>
                 <div class="modal-footer">

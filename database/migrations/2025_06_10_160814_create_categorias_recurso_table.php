@@ -18,7 +18,8 @@ return new class extends Migration
             $table->enum('tipo', ['base_datos', 'revista', 'repositorio', 'libro_digital', 'herramienta', 'otro']);
             $table->string('icono', 50)->nullable();
             $table->boolean('activa')->nullable()->default(true);
-            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
         });
     }
 

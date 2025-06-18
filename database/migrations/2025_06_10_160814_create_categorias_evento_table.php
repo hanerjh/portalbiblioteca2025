@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('color', 7)->nullable()->default('#28a745');
             $table->string('icono', 50)->nullable();
             $table->boolean('activa')->nullable()->default(true);
-            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('recurso_programas', function (Blueprint $table) {
             $table->integer('recurso_id');
             $table->integer('programa_id')->index('programa_id');
-
             $table->primary(['recurso_id', 'programa_id']);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();
+
         });
     }
 

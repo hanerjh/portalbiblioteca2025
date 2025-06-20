@@ -8,14 +8,15 @@ use App\Models\CategoriaEvento;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
+use Livewire\WithFileUploads;
 
 class GestionEventos extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     // Propiedades del modelo
-    public $titulo, $slug, $descripcion, $contenido, $categoria_id, $organizador;
-    public $fecha_inicio, $fecha_fin, $lugar, $modalidad, $estado, $evento_id;
+    public $titulo, $slug, $descripcion, $contenido, $categoria_id, $organizador, $archivo,$archivo_ruta;
+    public $fecha_inicio, $fecha_fin, $lugar, $modalidad='presencial', $estado='Borrador', $evento_id;
 
     // Propiedades de la UI
     public $isOpen = false;
@@ -44,6 +45,14 @@ class GestionEventos extends Component
 
     public function store()
     {
+       
+         // Solo requerir archivo al crear
+        if (!$this->evento_id) {
+            $validate_archivo = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
+        } else {
+            $validate_archivo = 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
+        }
+        
         $this->validate([
             'titulo' => 'required|string|max:200',
             'slug' => 'required|string|unique:eventos,slug,' . $this->evento_id,
@@ -51,9 +60,17 @@ class GestionEventos extends Component
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'modalidad' => 'required|in:presencial,virtual,hibrido',
-            'estado' => 'required|in:borrador,publicado,cancelado,finalizado',
+            'estado' => 'required|in:Borrador,Publicado,Cancelado,Finalizado',
+            'archivo'=>$validate_archivo,
         ]);
 
+        
+       if ($this->archivo) {
+        
+            $this->archivo_ruta = $this->archivo->store('upload_evento', 'public');
+            
+        }
+       
         Evento::updateOrCreate(['id' => $this->evento_id], [
             'titulo' => $this->titulo,
             'slug' => Str::slug($this->titulo),
@@ -63,8 +80,8 @@ class GestionEventos extends Component
             'organizador' => $this->organizador,
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $this->fecha_fin,
-            'lugar' => $this->lugar,
             'modalidad' => $this->modalidad,
+            'archivo'=> $this->archivo_ruta,
             'estado' => $this->estado,
         ]);
 
@@ -79,7 +96,9 @@ class GestionEventos extends Component
     public function create() { $this->resetInputFields(); $this->openModal(); }
     public function openModal() { $this->isOpen = true; }
     public function closeModal() { $this->isOpen = false; }
-    public function updatedTitulo($value) { $this->slug = Str::slug($value); }
+
+    public function updatedTitulo($value): void { $this->slug = Str::slug($value); }
+
     private function resetInputFields() { $this->reset(); } // Simplificado, puedes detallarlo
     
     public function edit($id)

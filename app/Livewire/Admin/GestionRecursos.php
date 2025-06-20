@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use Livewire\Component;
 use App\Models\RecursoDigital;
 use App\Models\CategoriaRecurso;
+use App\Models\TipoUsuario;
 use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
 
@@ -13,7 +14,7 @@ class GestionRecursos extends Component
     use WithPagination;
 
     // Propiedades del modelo
-    public $titulo, $descripcion, $url, $categoria_id, $proveedor, $tipo_acceso, $recurso_id;
+    public $titulo, $descripcion, $url, $categoria_id, $proveedor, $tipo_acceso, $recurso_id, $tipo_usuario;
 
     // Propiedades de la UI
     public $isOpen = false;
@@ -28,10 +29,12 @@ class GestionRecursos extends Component
             ->paginate(10);
             
         $categorias = CategoriaRecurso::where('activa', true)->get();
-
+        $tipo_usuario = TipoUsuario::where('activo', true)->get();
+       
         return view('livewire.admin.gestion-recursos', [
             'recursos' => $recursos,
             'categorias' => $categorias,
+            'tipoUsuarios'=>$tipo_usuario,
         ]);
     }
 

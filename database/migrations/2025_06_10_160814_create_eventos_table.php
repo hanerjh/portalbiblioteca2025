@@ -27,7 +27,7 @@ return new class extends Migration
             // $table->string('lugar', 200)->nullable();
             // $table->text('direccion')->nullable();
             $table->enum('modalidad', ['presencial', 'virtual', 'hibrido'])->nullable()->default('presencial');
-            $table->string('url_virtual', 500)->nullable();
+            $table->string('archivo', 500)->nullable();
             // $table->integer('capacidad_maxima')->nullable();
             // $table->decimal('costo', 10)->nullable()->default(0);
             // $table->boolean('requiere_inscripcion')->nullable()->default(false);

@@ -1,4 +1,16 @@
 <div>
+    
+    @push('script')
+        <script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+        <script src="assets/static/js/pages/form-element-select.js"></script>
+    @endpush
+
+    @push('css')
+        <link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
+        
+    @endpush
+        
+    
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="card-title mb-0">Gestión de Recursos Digitales</h5>
@@ -79,6 +91,18 @@
                                     <option value="suscripcion">Suscripción</option>
                                 </select>
                                 @error('tipo_acceso') <span class="text-danger small">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                        <div class="row" wire:ignore>
+                                <div class="col-md-6 mb-3">
+                                <label for="tipousuario" class="form-label">Tipo Usuario</label>
+                                <select wire:model="tipo_usuario"  class="choices form-select multiple-remove" multiple="multiple" id="tipousuario">
+                                    <option value="">Seleccionar...</option>
+                                    @foreach($tipoUsuarios as $tpusu)
+                                    <option value="{{ $tpusu->id }}">{{ $tpusu->nombre }}</option>
+                                    @endforeach
+                                </select>
+                                @error('categoria_id') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="mb-3">

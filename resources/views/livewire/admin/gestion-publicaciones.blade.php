@@ -1,4 +1,10 @@
 <div>
+
+
+
+   @include('partials.includes')
+ 
+
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <div>
@@ -8,13 +14,13 @@
             <button wire:click="create()" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Nueva Publicación</button>
         </div>
         <div class="card-body">
-            <div class="row mb-3">
+            <!--<div class="row mb-3">
                 <div class="col-md-6">
                     <input wire:model.live.debounce.300ms="search" type="text" class="form-control" placeholder="Buscar por título...">
                 </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
+            </div>-->
+            <div class="table-responsive" wire:ignore>
+                <table class="table table-striped table-hover"  id="table1">
                     <thead class="table-dark">
                         <tr>
                             <th>Título</th>
@@ -55,14 +61,16 @@
     </div>
 
     <!-- Modal para Crear/Editar -->
-    <div class="modal fade @if($isOpen) show @endif" style="display: @if($isOpen) block @else none @endif;" tabindex="-1" role="dialog">
+    <div class="modal fade @if($isOpen)  show @endif"  style="display: @if($isOpen) block @else none @endif;" tabindex="-1" role="dialog">
+   
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+             <div class="modal-content"> 
                 <div class="modal-header">
                     <h5 class="modal-title">{{ $publicacion_id ? 'Editar Publicación' : 'Crear Nueva Publicación' }}</h5>
                     <button type="button" class="btn-close" wire:click="closeModal()" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+                </div>               
+                 <div class="modal-body">
+                   
                     <form>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -105,7 +113,29 @@
                         </div>
                         <div class="mb-3">
                             <label for="contenido" class="form-label">Contenido Completo</label>
-                            <textarea wire:model="contenido" class="form-control" id="contenido" rows="6"></textarea>
+                          
+                         <div
+                            x-data
+                            x-init="
+                                let editor = $('#editor').summernote({
+                                    height: 200,
+                                    callbacks: {
+                                        onChange: function(contents) {
+                                            $wire.set('contenido', contents);
+                                        }
+                                    }
+                                });
+
+                                // Si ya hay contenido, establecerlo al cargar
+                                $nextTick(() => {
+                                    $('#editor').summernote('code', @js($contenido));
+                                });  
+                            "
+                            wire:ignore
+                        >
+    <textarea id="editor"></textarea>
+</div>
+
                              @error('contenido') <span class="text-danger small">{{ $message }}</span>@enderror
                         </div>
      
@@ -113,9 +143,9 @@
                              <div class="col-md-6 mb-3">
                                 <label for="estado" class="form-label">Estado</label>
                                 <select wire:model="estado" class="form-select" id="estado">
-                                    <option value="borrador">Borrador</option>
-                                    <option value="publicado">Publicado</option>
-                                    <option value="archivado">Archivado</option>
+                                    <option value="Borrador">Borrador</option>
+                                    <option value="Publicado">Publicado</option>
+                                    <option value="Archivado">Archivado</option>
                                 </select>
                                 @error('estado') <span class="text-danger small">{{ $message }}</span>@enderror
                             </div>
@@ -158,13 +188,14 @@
                <!-- fin acordion para ocultar campos url de videos y audio--> 
                          
                     </form>
-                </div>
+                 </div> 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal()">Cancelar</button>
                     <button type="button" class="btn btn-primary" wire:click.prevent="store()">Guardar Cambios</button>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
     <div class="modal-backdrop fade @if($isOpen) show @endif" style="display: @if($isOpen) block @else none @endif;"></div>
+
 </div>

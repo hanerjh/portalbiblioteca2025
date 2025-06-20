@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/publicaciones', GestionPublicaciones::class)->name('publicaciones.index');
-Route::get('/eventos', GestionEventos::class)->name('eventos.index');
+/* Route::get('/publicaciones', GestionPublicaciones::class)->name('publicaciones.index');
+Route::get('/eventos', GestionEventos::class)->name('eventos.index'); */
 
 Route::get('categoriaeventos', function(){
         

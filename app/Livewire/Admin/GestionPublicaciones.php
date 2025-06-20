@@ -18,14 +18,16 @@ class GestionPublicaciones extends Component
     use WithPagination, WithFileUploads;
 
     // Propiedades del modelo
-    public $titulo, $slug, $resumen, $contenido, $categoria_id,$categoria, $estado, $publicacion_id, $destacado, $label_destacado="Inactivo",$archivo,$archivo_ruta;
+    public $titulo, $slug, $resumen,  $categoria_id,$categoria, $estado, $publicacion_id, $destacado, $label_destacado="Inactivo",$archivo,$archivo_ruta;
     public $video, $audio;
     // Propiedades de la UI
     public $isOpen = false;
     public $search = '';
-    
+    public $contenido;
     // Usar el tema de paginación de Bootstrap
     protected $paginationTheme = 'bootstrap';
+    // propiedad para controlar las opciones checkbox con livewire, es interna de liveware
+    public $receiveUpdates = [];
 
     #[Layout('components.layouts.admin')]
     public function render()
@@ -37,11 +39,12 @@ class GestionPublicaciones extends Component
             ->paginate(10);
             
         $categorias = CategoriaPublicacion::where('activa', true)->get();
-
+       
         return view('livewire/admin/gestion-publicaciones', [
             'publicaciones' => $publicaciones,
             'categorias' => $categorias,
         ]);
+
     }
 
     public function create()
@@ -89,13 +92,13 @@ class GestionPublicaciones extends Component
             'slug' => 'required|string|max:200|unique:publicaciones,slug,' . $this->publicacion_id,
             'categoria_id' => 'required|exists:categorias_publicacion,id',
             'resumen' => 'nullable|string',
-            'contenido' => 'nullable|string',
-            'estado' => 'required|in:borrador,publicado,archivado', 
+            'contenido' => 'nullable',
+            'estado' => 'required|in:Borrador,Publicado,Archivado', 
             'destacado' => 'required|boolean',
             'archivo'=>$validate_archivo,
         ]);
 
-        
+      
         
 
        if ($this->archivo) {
@@ -136,8 +139,11 @@ class GestionPublicaciones extends Component
         $this->categoria_id = $publicacion->categoria_id;
         $this->estado = $publicacion->estado;
         $this->destacado = $publicacion->destacado;
-
+        
+        $this->chage_destacado();
+        $this->dispatch('mostrarModalEdicion', contenido: $this->contenido, destacado:  $this->destacado);
         $this->openModal();
+        
     }
 
     public function delete($id)
@@ -147,7 +153,8 @@ class GestionPublicaciones extends Component
     }
 
     public function chage_destacado(){
-        $this->label_destacado = 'Inactivo';
+        
+       // $this->label_destacado = 'Inactivo';
 
         // $this->destacado += !$this->destacado;
          if($this->destacado==true){ 

@@ -12,7 +12,7 @@ class Evento extends Model
     protected $fillable = [
         'titulo', 'slug', 'descripcion', 'contenido', 'imagen_destacada', 'categoria_id', 'organizador',
         'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'lugar', 'direccion', 'modalidad',
-        'url_virtual', 'capacidad_maxima', 'costo', 'requiere_inscripcion', 'email_contacto',
+        'archivo', 'capacidad_maxima', 'costo', 'requiere_inscripcion', 'email_contacto',
         'telefono_contacto', 'estado', 'destacado'
     ];
     protected $casts = [

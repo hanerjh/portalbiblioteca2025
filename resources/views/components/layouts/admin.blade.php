@@ -9,7 +9,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    @stack('css')
+    @vite(['resources/assets/compiled/css/app.css', 
+        'resources/assets/compiled/css/app-dark.css',
+        //'resources/assets/extensions/summernote/summernote-lite.css',
+        //'resources/assets/compiled/css/form-editor-summernote.css',
+        'resources/assets/compiled/js/app.js',
+        'resources/assets/extensions/jquery/jquery.min.js',
+        'resources/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js',
+        'resources/assets/extensions/parsleyjs/parsley.min.js',
+        'resources/assets/static/js/pages/parsley.js',
+        'resources/assets/static/js/initTheme.js',
+        'resources/assets/static/js/components/dark.js',
+        'resources/assets/extensions/summernote/summernote-lite.min.js',
+        'resources/assets/static/js/pages/summernote.js',
+        ])
     @livewireStyles
 </head>
 <body>
@@ -93,7 +107,14 @@
 </div>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> --}}
+
 @livewireScripts
+@stack('script')
+
+
+  
+
+
 </body>
 </html>

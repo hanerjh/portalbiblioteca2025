@@ -94,26 +94,52 @@
                             </div>
                         </div>
                         <div class="row" wire:ignore>
-                                <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="tipousuario" class="form-label">Tipo Usuario</label>
-                                <select wire:model="tipo_usuario"  class="choices form-select multiple-remove" multiple="multiple" id="tipousuario">
+                                <select  class="choices form-select multiple-remove" multiple="multiple" id="tipousuario">
                                     <option value="">Seleccionar...</option>
                                     @foreach($tipoUsuarios as $tpusu)
                                     <option value="{{ $tpusu->id }}">{{ $tpusu->nombre }}</option>
                                     @endforeach
                                 </select>
-                                @error('categoria_id') <span class="text-danger small">{{ $message }}</span> @enderror
+                                @error('tipo_usuario') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
+                            <div class="col-md-6 mb-3">
+                                    <label for="area" class="form-label">Área Conocimiento</label>
+                                    <select  class="choices form-select multiple-remove" multiple="multiple" id="areaconocimiento">
+                                        <option value="">Seleccionar...</option>
+                                        @foreach($area as $areaconocimiento)
+                                        <option value="{{ $areaconocimiento->id }}">{{ $areaconocimiento->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('area_conocimiento') <span class="text-danger small">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3" wire:ignore>
+                                    <label for="programa" class="form-label">Programa Académico</label>
+                                    <select  class="choices form-select multiple-remove" multiple="multiple" id="programa">
+                                        <option value="">Seleccionar...</option>
+                                        @foreach($programa as $prog)
+                                        <option value="{{ $prog->id }}">{{ $prog->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('programa') <span class="text-danger small">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="proveedor" class="form-label">Proveedor</label>
+                                <input type="text" wire:model="proveedor" class="form-control" id="proveedor">
+                                @error('proveedor') <span class="text-danger small">{{ $message }}</span> @enderror
+                            </div>
+
+                          
+
                         </div>
                         <div class="mb-3">
                             <label for="url" class="form-label">URL de Acceso</label>
                             <input type="url" wire:model="url" class="form-control" id="url" placeholder="https://...">
                             @error('url') <span class="text-danger small">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="proveedor" class="form-label">Proveedor</label>
-                            <input type="text" wire:model="proveedor" class="form-control" id="proveedor">
-                            @error('proveedor') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción</label>
@@ -131,3 +157,56 @@
     </div>
     <div class="modal-backdrop fade @if($isOpen) show @endif" style="display: @if($isOpen) block @else none @endif;"></div>
 </div>
+
+{{-- @push('script')
+<script>
+document.addEventListener('alpine:init', () => {
+    window.Livewire.hook('commit', () => {
+        // Solo inicializa si no existe
+        const tipoSelect = document.getElementById('tipousuario');
+tipoSelect.addEventListener('change', function () {
+    const seleccionados = Array.from(this.selectedOptions).map(opt => opt.value);
+    console.log(seleccionados)
+    Livewire.dispatch('tiposActualizados', {
+        seleccionados: seleccionados
+    });
+});
+
+const areaSelect = document.getElementById('areaconocimiento');
+areaSelect.addEventListener('change', function () {
+    const seleccionados = Array.from(this.selectedOptions).map(opt => opt.value);
+    console.log(seleccionados)
+    Livewire.dispatch('areasActualizadas', {
+        seleccionados: seleccionados
+    });
+});
+
+    });
+});
+</script>
+@endpush --}}
+
+@push('script')
+<script>
+    document.addEventListener('alpine:init', () => {
+        window.Livewire.hook('commit', () => {
+        const selects = [
+            { id: 'tipousuario', evento: 'tiposActualizados' },
+            { id: 'areaconocimiento', evento: 'areasActualizadas' },
+            { id: 'programa', evento: 'programaActualizadas' }
+        ];
+
+        selects.forEach(({ id, evento }) => {
+            const element = document.getElementById(id);
+         
+            element.addEventListener('change', () => {
+                const selectedValues = Array.from(element.selectedOptions).map(option => option.value);
+                console.log(selectedValues);
+                Livewire.dispatch(evento, { seleccionados: selectedValues });
+            });
+        });
+    });
+    });
+</script>
+@endpush
+

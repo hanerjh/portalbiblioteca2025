@@ -53,16 +53,49 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                    <div class="col-md-4 mb-3">
+                                <label for="categoria_id" class="form-label">Asignar material al Recurso Digital:</label><br>
+                                
+                                <select wire:model="recurso_id" class="form-select" >
+                                    <option value="">Seleccionar...</option>
+                                    @foreach($recursodigital as $recdig)
+                                    <option value="{{ $recdig->id }}">{{ $recdig->titulo }}</option>
+                                    @endforeach
+                                </select>
+                                @error('recurso_id') <span class="text-danger small">{{ $message }}</span> @enderror
+                            </div>
+
                         <div class="mb-3">
                             <label for="titulo" class="form-label">Título</label>
                             <input type="text" wire:model="titulo" class="form-control">
                             @error('titulo') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
+                        
+
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <label class="form-check-label" for="inlineRadio1">Subir archivo</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Enlace</label>
+                            </div>
+
+                        {{-- campo fileupload --}}
                         <div class="mb-3">
                             <label for="url_recurso" class="form-label">URL del Recurso</label>
                             <input type="text" wire:model="url_recurso" class="form-control" placeholder="URL de video, ruta de archivo, etc.">
                              @error('url_recurso') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
+                        {{-- campo fileupload --}}
+                        <div class="mb-3">
+                            <label for="archivo" class="form-label">Archivo</label>
+                            <input type="file" wire:model="archivo" class="form-control" id="archivo">
+                             <div wire:loading wire:target="archivo" class="text-primary small mt-1">Cargando...</div>
+                            @if($material_id) <small class="form-text text-muted">Dejar en blanco para no modificar el archivo actual.</small> @endif
+                            @error('archivo') <span class="text-danger small">{{ $message }}</span> @enderror
+                        </div>
+
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label for="tipo" class="form-label">Tipo</label>

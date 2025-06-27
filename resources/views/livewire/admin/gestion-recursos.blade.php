@@ -1,16 +1,22 @@
 <div>
     
     @push('script')
-        <script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
-        <script src="assets/static/js/pages/form-element-select.js"></script>
+    <script src="assets/choices/scripts/choices.min.js"></script>
+        <script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+<script src="assets/static/js/pages/simple-datatables.js"></script>
     @endpush
 
     @push('css')
-        <link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
-        
+    <link rel="stylesheet" href="assets/extensions/simple-datatables/style.css">
+        <link rel="stylesheet" href="assets/compiled/css/table-datatable.css">
+    <!-- Include base CSS (optional) -->
+    <link rel="stylesheet" href="assets/choices/styles/base.min.css"/>
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="assets/choices/styles/choices.min.css"/>
+   
     @endpush
         
-    
+            
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="card-title mb-0">Gestión de Recursos Digitales</h5>
@@ -18,8 +24,8 @@
         </div>
         <div class="card-body">
             <input wire:model.live.debounce.300ms="search" type="text" class="form-control mb-3" placeholder="Buscar por título...">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
+            <div class="table-responsive" >
+                <table class="table table-striped table-hover" >
                     <thead class="table-dark">
                         <tr>
                             <th>Título</th>
@@ -86,7 +92,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="tipo_acceso" class="form-label">Tipo de Acceso</label>
                                 <select wire:model="tipo_acceso" class="form-select" id="tipo_acceso">
-                                    <option value="libre">Libre</option>
+                                    <option value="Acceso abierto">Acceso abierto</option>
                                     <option value="restringido">Restringido</option>
                                     <option value="suscripcion">Suscripción</option>
                                 </select>
@@ -96,7 +102,7 @@
                         <div class="row" wire:ignore>
                             <div class="col-md-6 mb-3">
                                 <label for="tipousuario" class="form-label">Tipo Usuario</label>
-                                <select  class="choices form-select multiple-remove" multiple="multiple" id="tipousuario">
+                                <select class="choices form-select multiple-remove" multiple="multiple" id="tipousuario">
                                     <option value="">Seleccionar...</option>
                                     @foreach($tipoUsuarios as $tpusu)
                                     <option value="{{ $tpusu->id }}">{{ $tpusu->nombre }}</option>
@@ -105,26 +111,26 @@
                                 @error('tipo_usuario') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6 mb-3">
-                                    <label for="area" class="form-label">Área Conocimiento</label>
-                                    <select  class="choices form-select multiple-remove" multiple="multiple" id="areaconocimiento">
-                                        <option value="">Seleccionar...</option>
-                                        @foreach($area as $areaconocimiento)
-                                        <option value="{{ $areaconocimiento->id }}">{{ $areaconocimiento->nombre }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('area_conocimiento') <span class="text-danger small">{{ $message }}</span> @enderror
+                                <label for="area" class="form-label">Área Conocimiento</label>
+                                <select class="choices form-select multiple-remove" multiple="multiple" id="areaconocimiento">
+                                    <option value="">Seleccionar...</option>
+                                    @foreach($area as $areaconocimiento)
+                                    <option value="{{ $areaconocimiento->id }}">{{ $areaconocimiento->nombre }}</option>
+                                    @endforeach
+                                </select>
+                                @error('area_conocimiento') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3" wire:ignore>
-                                    <label for="programa" class="form-label">Programa Académico</label>
-                                    <select  class="choices form-select multiple-remove" multiple="multiple" id="programa">
-                                        <option value="">Seleccionar...</option>
-                                        @foreach($programa as $prog)
-                                        <option value="{{ $prog->id }}">{{ $prog->nombre }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('programa') <span class="text-danger small">{{ $message }}</span> @enderror
+                                <label for="programa" class="form-label">Programa Académico</label>
+                                <select class="choices form-select multiple-remove" multiple="multiple" id="programa">
+                                    <option value="">Seleccionar...</option>
+                                    @foreach($programa as $prog)
+                                    <option value="{{ $prog->id }}">{{ $prog->nombre }}</option>
+                                    @endforeach
+                                </select>
+                                @error('programa') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="col-md-6 mb-3">
@@ -132,9 +138,6 @@
                                 <input type="text" wire:model="proveedor" class="form-control" id="proveedor">
                                 @error('proveedor') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
-
-                          
-
                         </div>
                         <div class="mb-3">
                             <label for="url" class="form-label">URL de Acceso</label>
@@ -158,55 +161,144 @@
     <div class="modal-backdrop fade @if($isOpen) show @endif" style="display: @if($isOpen) block @else none @endif;"></div>
 </div>
 
-{{-- @push('script')
-<script>
-document.addEventListener('alpine:init', () => {
-    window.Livewire.hook('commit', () => {
-        // Solo inicializa si no existe
-        const tipoSelect = document.getElementById('tipousuario');
-tipoSelect.addEventListener('change', function () {
-    const seleccionados = Array.from(this.selectedOptions).map(opt => opt.value);
-    console.log(seleccionados)
-    Livewire.dispatch('tiposActualizados', {
-        seleccionados: seleccionados
-    });
-});
-
-const areaSelect = document.getElementById('areaconocimiento');
-areaSelect.addEventListener('change', function () {
-    const seleccionados = Array.from(this.selectedOptions).map(opt => opt.value);
-    console.log(seleccionados)
-    Livewire.dispatch('areasActualizadas', {
-        seleccionados: seleccionados
-    });
-});
-
-    });
-});
-</script>
-@endpush --}}
-
 @push('script')
 <script>
-    document.addEventListener('alpine:init', () => {
-        window.Livewire.hook('commit', () => {
-        const selects = [
-            { id: 'tipousuario', evento: 'tiposActualizados' },
-            { id: 'areaconocimiento', evento: 'areasActualizadas' },
-            { id: 'programa', evento: 'programaActualizadas' }
-        ];
+document.addEventListener('DOMContentLoaded', function() {
+    // Instancias de Choices.js
+    let choicesInstances = {};
+    
+    // Configuración de selects
+    const selectsConfig = [
+        { id: 'tipousuario', evento: 'tiposActualizados' },
+        { id: 'areaconocimiento', evento: 'areasActualizadas' },
+        { id: 'programa', evento: 'programaActualizadas' }
+    ];
 
-        selects.forEach(({ id, evento }) => {
+    // Inicializar Choices.js
+    function initializeChoices() {
+        selectsConfig.forEach(({ id, evento }) => {
             const element = document.getElementById(id);
-         
-            element.addEventListener('change', () => {
-                const selectedValues = Array.from(element.selectedOptions).map(option => option.value);
-                console.log(selectedValues);
-                Livewire.dispatch(evento, { seleccionados: selectedValues });
-            });
+            if (element) {
+                // Destruir instancia existente si existe
+                if (choicesInstances[id]) {
+                    choicesInstances[id].destroy();
+                }
+                
+                // Crear nueva instancia
+                choicesInstances[id] = new Choices(element, {
+                    removeItemButton: true,
+                    searchEnabled: true,
+                    searchChoices: true,
+                    placeholder: true,
+                    placeholderValue: 'Seleccionar...',
+                    allowHTML: false
+                });
+                
+                // Agregar event listener
+                element.addEventListener('change', () => {
+                    const selectedValues = choicesInstances[id].getValue(true);
+                    console.log(`${id} seleccionados:`, selectedValues);
+                    Livewire.dispatch(evento, { seleccionados: selectedValues });
+                });
+            }
+        });
+    }
+
+    // Limpiar todos los selects
+    function limpiarSelects() {
+        console.log('Limpiando selects...');
+        selectsConfig.forEach(({ id }) => {
+            if (choicesInstances[id]) {
+                // Limpiar selecciones actuales
+                choicesInstances[id].removeActiveItems();
+                console.log(`Select ${id} limpiado`);
+            }
+        });
+    }
+
+    // Cargar valores en los selects (para edición)
+    function cargarValoresSelects(data) {
+        console.log('Cargando valores:', data);
+        
+        // Cargar tipos de usuario
+        if (data.tipos && data.tipos.length > 0 && choicesInstances['tipousuario']) {
+            choicesInstances['tipousuario'].setChoiceByValue(data.tipos.map(String));
+        }
+        
+        // Cargar áreas de conocimiento
+        if (data.areas && data.areas.length > 0 && choicesInstances['areaconocimiento']) {
+            choicesInstances['areaconocimiento'].setChoiceByValue(data.areas.map(String));
+        }
+        
+        // Cargar programas
+        if (data.programas && data.programas.length > 0 && choicesInstances['programa']) {
+            choicesInstances['programa'].setChoiceByValue(data.programas.map(String));
+        }
+    }
+
+    // Función para verificar si el modal está abierto
+    function isModalOpen() {
+        return document.querySelector('.modal.show') !== null;
+    }
+
+    // Inicializar cuando se detecte que el modal está abierto
+    function checkAndInitialize() {
+        if (isModalOpen() && Object.keys(choicesInstances).length === 0) {
+            initializeChoices();
+        }
+    }
+
+    // Observer para detectar cambios en el DOM
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const target = mutation.target;
+                if (target.classList.contains('modal') && target.classList.contains('show')) {
+                    setTimeout(() => {
+                        checkAndInitialize();
+                    }, 100);
+                }
+            }
         });
     });
+
+    // Observar cambios en el modal
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        observer.observe(modal, { attributes: true });
+    }
+
+    // Escuchar eventos personalizados
+    window.addEventListener('limpiar-selects', function() {
+        console.log('Evento personalizado limpiar-selects recibido');
+        if (isModalOpen()) {
+            setTimeout(() => {
+                if (Object.keys(choicesInstances).length === 0) {
+                    initializeChoices();
+                }
+                limpiarSelects();
+            }, 100);
+        }
     });
+
+    window.addEventListener('cargar-valores-selects', function(event) {
+        console.log('Evento personalizado cargar-valores-selects recibido', event.detail);
+        if (isModalOpen()) {
+            setTimeout(() => {
+                if (Object.keys(choicesInstances).length === 0) {
+                    initializeChoices();
+                }
+                setTimeout(() => {
+                    cargarValoresSelects(event.detail);
+                }, 100);
+            }, 100);
+        }
+    });
+
+    // Inicializar al cargar la página si el modal ya está abierto
+    setTimeout(() => {
+        checkAndInitialize();
+    }, 100);
+});
 </script>
 @endpush
-

@@ -18,37 +18,32 @@ class GestionRecursos extends Component
 
     // Propiedades del modelo
     public $titulo, $descripcion, $url, $categoria_id, $proveedor, $tipo_acceso, $recurso_id;
-    public array $tipo_usuario_form=[];
-    public array $area_conocimiento_form=[];
-     public array $programa_form=[];
+    public array $tipo_usuario_form = [];
+    public array $area_conocimiento_form = [];
+    public array $programa_form = [];
    
-    
     // Propiedades de la UI
     public $isOpen = false;
     public $search = '';
     protected $paginationTheme = 'bootstrap';
 
-   
+    #[On('tiposActualizados')]
+    public function tiposActualizados(array $seleccionados)
+    {
+        $this->tipo_usuario_form = $seleccionados;
+    }
 
+    #[On('areasActualizadas')]
+    public function areasActualizadas(array $seleccionados)
+    {
+        $this->area_conocimiento_form = $seleccionados;
+    }
 
-#[On('tiposActualizados')]
-public function tiposActualizados(array $seleccionados)
-{
-    $this->tipo_usuario_form = $seleccionados;
-}
-
-#[On('areasActualizadas')]
-public function areasActualizadas(array $seleccionados)
-{
-    $this->area_conocimiento_form = $seleccionados;
-}
-
-#[On('programaActualizadas')]
-public function programaActualizadas(array $seleccionados)
-{
-    $this->programa_form = $seleccionados;
-}
-
+    #[On('programaActualizadas')]
+    public function programaActualizadas(array $seleccionados)
+    {
+        $this->programa_form = $seleccionados;
+    }
 
     #[Layout('components.layouts.admin')]
     public function render()
@@ -66,9 +61,9 @@ public function programaActualizadas(array $seleccionados)
         return view('livewire.admin.gestion-recursos', [
             'recursos' => $recursos,
             'categorias' => $categorias,
-            'tipoUsuarios'=>$tipo_usuario,
-             'area'=>$area_conocimiento,
-             'programa'=>$programaAcademicos,
+            'tipoUsuarios' => $tipo_usuario,
+            'area' => $area_conocimiento,
+            'programa' => $programaAcademicos,
         ]);
     }
 
@@ -76,6 +71,8 @@ public function programaActualizadas(array $seleccionados)
     {
         $this->resetInputFields();
         $this->openModal();
+        // Disparar evento después de un pequeño delay para asegurar que el modal esté renderizado
+        $this->js('setTimeout(() => { window.dispatchEvent(new CustomEvent("limpiar-selects")); }, 100);');
     }
 
     public function openModal()
@@ -86,13 +83,19 @@ public function programaActualizadas(array $seleccionados)
     public function closeModal()
     {
         $this->isOpen = false;
+        $this->resetInputFields();
+        // Limpiar selects al cerrar
+        $this->js('setTimeout(() => { window.dispatchEvent(new CustomEvent("limpiar-selects")); }, 100);');
     }
 
     private function resetInputFields()
     {
-        $this->reset();        
-        $this->tipo_acceso = 'libre'; // Valor por defecto
-        $this->dispatch('resetChoices'); 
+        $this->reset([
+            'titulo', 'descripcion', 'url', 'categoria_id', 
+            'proveedor', 'recurso_id', 'tipo_usuario_form', 
+            'area_conocimiento_form', 'programa_form'
+        ]);
+        $this->tipo_acceso = 'Acceso abierto'; // Valor por defecto
     }
 
     public function store()
@@ -100,13 +103,13 @@ public function programaActualizadas(array $seleccionados)
         $this->validate([
             'titulo' => 'required|string|max:200',
             'categoria_id' => 'required|exists:categorias_recurso,id',
-            'tipo_acceso' => 'required|in:libre,restringido,suscripcion',
+            'tipo_acceso' => 'required|in:Acceso abierto,restringido,suscripcion',
             'url' => 'required|url',
             'proveedor' => 'nullable|string|max:150',
             'descripcion' => 'nullable|string',
         ]);
 
-        $result_recurso=RecursoDigital::updateOrCreate(['id' => $this->recurso_id], [
+        $result_recurso = RecursoDigital::updateOrCreate(['id' =>(int) $this->recurso_id], [
             'titulo' => $this->titulo,
             'descripcion' => $this->descripcion,
             'url' => $this->url,
@@ -115,28 +118,20 @@ public function programaActualizadas(array $seleccionados)
             'tipo_acceso' => $this->tipo_acceso,
         ]);
     
-        //FORMA DINAMICA DE REGISTRAR INFORMACION A TABLAS PIVOTES MUCHO A MUCHOS 
-        // [recuros_area],[recuros_usuario], [recuros_programa] etc.
-        /**
-         * 1. $result_recurso guarda el contendido del modelo de RecursoDigital
-         * 2. $result_recurso->areasConocimiento() es una relacion  de muchos a mucho entre los modelos (tablas)
-         * areasConocimiento() es la funcion creada en el modelo de RecursoDigital que hace la unido de uno a muchos
-         * 3. ->sync([1,2,3]) metodo que permite agregar los datos array a la tabla pivite (mucho a muchos [recuros_area])
-         */
+        // Sincronizar relaciones muchos a muchos
         $result_recurso->areasConocimiento()->sync($this->area_conocimiento_form);
         $result_recurso->tiposUsuario()->sync($this->tipo_usuario_form);
         $result_recurso->programasAcademicos()->sync($this->programa_form);
-
-         //dd($this->tipo_usuario_form, $this->area_conocimiento_form);
-
+        
         session()->flash('message', 'Recurso digital guardado exitosamente.');
         $this->closeModal();
-        $this->resetInputFields();
     }
 
     public function edit($id)
     {
-        $recurso = RecursoDigital::findOrFail($id);
+        $recurso = RecursoDigital::with(['tiposUsuario', 'areasConocimiento', 'programasAcademicos'])
+            ->findOrFail($id);
+            
         $this->recurso_id = $id;
         $this->titulo = $recurso->titulo;
         $this->descripcion = $recurso->descripcion;
@@ -144,7 +139,26 @@ public function programaActualizadas(array $seleccionados)
         $this->categoria_id = $recurso->categoria_id;
         $this->proveedor = $recurso->proveedor;
         $this->tipo_acceso = $recurso->tipo_acceso;
+        
+        // Cargar relaciones existentes
+        $this->tipo_usuario_form = $recurso->tiposUsuario->pluck('id')->toArray();
+        $this->area_conocimiento_form = $recurso->areasConocimiento->pluck('id')->toArray();
+        $this->programa_form = $recurso->programasAcademicos->pluck('id')->toArray();
+        
         $this->openModal();
+        
+        // Disparar evento para cargar los valores en los selects con un delay
+        $valores = [
+            'tipos' => $this->tipo_usuario_form,
+            'areas' => $this->area_conocimiento_form,
+            'programas' => $this->programa_form
+        ];
+        $this->js('setTimeout(() => { window.dispatchEvent(new CustomEvent("limpiar-selects")); }, 100);');
+        $this->js('setTimeout(() => { 
+            window.dispatchEvent(new CustomEvent("cargar-valores-selects", { 
+                detail: ' . json_encode($valores) . ' 
+            })); 
+        }, 300);');
     }
 
     public function delete($id)

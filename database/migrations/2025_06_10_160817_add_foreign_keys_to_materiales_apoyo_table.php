@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('materiales_apoyo', function (Blueprint $table) {
             $table->foreign(['categoria_id'], 'materiales_apoyo_ibfk_1')->references(['id'])->on('categorias_material_apoyo')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign(['recurso_id'], 'recurso_digital_ibfk_1')->references(['id'])->on('recursos_digitales')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('materiales_apoyo', function (Blueprint $table) {
             $table->dropForeign('materiales_apoyo_ibfk_1');
+             $table->dropForeign('recurso_digital_ibfk_1');
         });
     }
 };

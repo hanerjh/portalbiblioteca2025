@@ -21,6 +21,7 @@ class MaterialApoyo extends Model
         'descripcion',
         'tipo',
         'categoria_id',
+        'recurso_id',
         'url_recurso',
         'duracion',
         'tamaño_archivo',
@@ -50,8 +51,13 @@ class MaterialApoyo extends Model
         return $this->belongsTo(CategoriaMaterialApoyo::class, 'categoria_id');
     }
 
-     public function recursosDigitales()
+    public function recursosDigitales()
     {
-        return $this->belongsToMany(RecursoDigital::class, 'recurso_materiales', 'material_id', 'recurso_id');
+        return $this->belongsTo(RecursoDigital::class, 'recurso_id');
     }
-}
+
+//      public function recursosDigitales()
+//     {
+//         return $this->belongsToMany(RecursoDigital::class, 'recurso_materiales', 'material_id', 'recurso_id');
+//     }
+  }

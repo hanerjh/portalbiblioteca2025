@@ -8,14 +8,15 @@ use App\Models\CategoriaMaterialApoyo;
 use App\Models\RecursoDigital;
 use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class GestionMaterialApoyo extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     // Propiedades del modelo
     public $titulo, $descripcion, $tipo, $categoria_id, $url_recurso, $estado, $material_id,$recurso_id,$archivo_ruta;
-    public $validarcampo=1;
+    public $validarcampo='', $archivo;
 
     // UI
     public $isOpen = false;
@@ -49,18 +50,35 @@ class GestionMaterialApoyo extends Component
     {
            // Solo requerir archivo al crear
         if (!$this->material_id) {
-            $validate_archivo = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
+             
+            if($this->validarcampo==1){
+                
+                $validate_archivo = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
+            }
+            else{
+                 $validate_archivo ='required|string|max:500';
+            }
         } else {
-            $validate_archivo = 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
+
+              if($this->validarcampo==1){
+                
+                $validate_archivo = 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
+              }
+            else{
+                 $validate_archivo ='nullable|string|max:500';
+            }
+           
         }
+
+        
 
         $this->validate([
             'titulo' => 'required|string|max:200',
             'tipo' => 'required|in:videotutorial,manual,guia,infografia,documento',
-            'categoria_id' => 'required|exists:categorias_material_apoyo,id',
-            'url_recurso' => 'required|string|max:500',
+            'categoria_id' => 'required|exists:categorias_material_apoyo,id',           
+            'url_recurso' => $validate_archivo,
             'estado' => 'required|in:borrador,publicado,archivado',
-            'archivo'=>$validate_archivo,
+            
         ]);
 
         
@@ -71,14 +89,20 @@ class GestionMaterialApoyo extends Component
             //$data['tipo_mime'] = $this->archivo->getMimeType();
         }
 
-        MaterialApoyo::updateOrCreate(['id' => $this->material_id], [
+        $result_ma=MaterialApoyo::updateOrCreate(['id' => $this->material_id], [
             'titulo' => $this->titulo,
             'descripcion' => $this->descripcion,
             'tipo' => $this->tipo,
             'categoria_id' => $this->categoria_id,
+            'recurso_id' => $this->recurso_id,
             'url_recurso' => $this->url_recurso,
             'estado' => $this->estado,
         ]);
+
+         // Sincronizar relaciones muchos a muchos
+         //$result_ma->recursosDigitales()->sync($this->recurso_id);
+      
+  
 
         session()->flash('message', 'Material de apoyo guardado.');
         $this->closeModal();
@@ -96,6 +120,10 @@ class GestionMaterialApoyo extends Component
         $this->url_recurso = $material->url_recurso;
         $this->estado = $material->estado;
         $this->openModal();
+
+
+
+       // $material->recursosDigitales()->sync($this->recurso_id);
     }
 
     public function delete($id)

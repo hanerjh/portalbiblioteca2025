@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->enum('tipo', ['videotutorial', 'manual', 'guia', 'infografia', 'documento'])->index('idx_materiales_tipo');
             $table->integer('categoria_id')->index('idx_materiales_categoria');
+            $table->integer('recurso_id')->nullable()->index('idx_recurso_digital');
             $table->string('url_recurso', 500);
             $table->string('duracion', 20)->nullable();
             $table->string('imagen_miniatura')->nullable();

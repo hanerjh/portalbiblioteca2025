@@ -73,20 +73,27 @@
                         
 
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio1" value="1" wire:model.live="validarcampo">
                             <label class="form-check-label" for="inlineRadio1">Subir archivo</label>
                             </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio2" value="2" wire:model.live="validarcampo">
                             <label class="form-check-label" for="inlineRadio2">Enlace</label>
+                
                             </div>
+                        
+                         @if ($validarcampo==2)
 
+                            
                         {{-- campo fileupload --}}
                         <div class="mb-3">
                             <label for="url_recurso" class="form-label">URL del Recurso</label>
                             <input type="text" wire:model="url_recurso" class="form-control" placeholder="URL de video, ruta de archivo, etc.">
                              @error('url_recurso') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
+                        @elseif($validarcampo==1)
+
+                          
                         {{-- campo fileupload --}}
                         <div class="mb-3">
                             <label for="archivo" class="form-label">Archivo</label>
@@ -95,6 +102,7 @@
                             @if($material_id) <small class="form-text text-muted">Dejar en blanco para no modificar el archivo actual.</small> @endif
                             @error('archivo') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
+                    @endif
 
                         <div class="row">
                             <div class="col-md-4 mb-3">

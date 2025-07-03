@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             AreasConocimientoSeeder::class,
             CategoriasMaterialApoyoSeeder::class,
             UserSeeder::class, 
+            Programas::class,
         ]);
     }
 }

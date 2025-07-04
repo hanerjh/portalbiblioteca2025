@@ -16,7 +16,7 @@ class GestionMaterialApoyo extends Component
 
     // Propiedades del modelo
     public $titulo, $descripcion, $tipo, $categoria_id, $url_recurso, $estado, $material_id,$recurso_id,$archivo_ruta;
-    public $validarcampo='', $archivo;
+    public $validarcampo='', $archivo, $e1=false, $e2=false, $d1='none', $d2='none', $campo;
 
     // UI
     public $isOpen = false;
@@ -41,6 +41,25 @@ class GestionMaterialApoyo extends Component
         ]);
     }
 
+    public function mostrarCampo(){
+        if($this->validarcampo==1){
+             $this->campo="archivo";
+            $this->e1=true;
+            $this->e2=false;
+            // $this->d1='d-inline';
+            //  $this->d2='d-none';
+        }
+        else 
+        {
+            $this->campo="url_recurso";
+           
+            $this->e1=false;
+            $this->e2=true;
+            //  $this->d2='d-inline';
+            //  $this->d1='d-none';
+        }
+    } 
+
     public function create() { $this->resetInputFields(); $this->openModal(); }
     public function openModal() { $this->isOpen = true; }
     public function closeModal() { $this->isOpen = false; }
@@ -52,42 +71,43 @@ class GestionMaterialApoyo extends Component
         if (!$this->material_id) {
              
             if($this->validarcampo==1){
-                
+              
                 $validate_archivo = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
             }
             else{
+                 $this->e1=false;
                  $validate_archivo ='required|string|max:500';
             }
         } else {
 
-              if($this->validarcampo==1){
-                
+         if($this->validarcampo==1){
+               
                 $validate_archivo = 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
-              }
-            else{
+              }else{
+                 
                  $validate_archivo ='nullable|string|max:500';
             }
            
         }
 
-        
-
-        $this->validate([
+            $this->validate([
             'titulo' => 'required|string|max:200',
             'tipo' => 'required|in:videotutorial,manual,guia,infografia,documento',
             'categoria_id' => 'required|exists:categorias_material_apoyo,id',           
-            'url_recurso' => $validate_archivo,
+             $this->campo => $validate_archivo,
             'estado' => 'required|in:borrador,publicado,archivado',
             
         ]);
 
-        
+             
        if ($this->archivo) {
             //$data['archivo_nombre'] = $this->archivo->getClientOriginalName();
             $this->url_recurso = $this->archivo->store('documentos', 'public');
             //$data['archivo_tamaño'] = $this->archivo->getSize();
             //$data['tipo_mime'] = $this->archivo->getMimeType();
         }
+
+       
 
         $result_ma=MaterialApoyo::updateOrCreate(['id' => $this->material_id], [
             'titulo' => $this->titulo,
@@ -119,6 +139,7 @@ class GestionMaterialApoyo extends Component
         $this->categoria_id = $material->categoria_id;
         $this->url_recurso = $material->url_recurso;
         $this->estado = $material->estado;
+        $this->recurso_id = $material->recurso_id;
         $this->openModal();
 
 

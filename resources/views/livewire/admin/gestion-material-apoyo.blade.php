@@ -73,36 +73,36 @@
                         
 
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio1" value="1" wire:model.live="validarcampo">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio1" value="1" wire:model.live="validarcampo" wire:click="mostrarCampo">
                             <label class="form-check-label" for="inlineRadio1">Subir archivo</label>
                             </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio2" value="2" wire:model.live="validarcampo">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"  id="inlineRadio2" value="2" wire:model.live="validarcampo" wire:click="mostrarCampo">
                             <label class="form-check-label" for="inlineRadio2">Enlace</label>
                 
                             </div>
                         
-                         @if ($validarcampo==2)
+                        {{-- @if ($validarcampo==2) --}}
 
                             
                         {{-- campo fileupload --}}
-                        <div class="mb-3">
+                        <div wire:show='e2' class="mb-3">
                             <label for="url_recurso" class="form-label">URL del Recurso</label>
-                            <input type="text" wire:model="url_recurso" class="form-control" placeholder="URL de video, ruta de archivo, etc.">
+                            <input type="text" wire:model="url_recurso" class="form-control {{ $d2 }}" placeholder="URL de video, ruta de archivo, etc.">
                              @error('url_recurso') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
-                        @elseif($validarcampo==1)
+                        {{-- @elseif($validarcampo==1) --}}
 
                           
                         {{-- campo fileupload --}}
-                        <div class="mb-3">
+                        <div wire:show='e1' class="mb-3">
                             <label for="archivo" class="form-label">Archivo</label>
-                            <input type="file" wire:model="archivo" class="form-control" id="archivo">
+                            <input type="file" wire:model="archivo" class="form-control {{ $d1 }}" id="archivo">
                              <div wire:loading wire:target="archivo" class="text-primary small mt-1">Cargando...</div>
                             @if($material_id) <small class="form-text text-muted">Dejar en blanco para no modificar el archivo actual.</small> @endif
                             @error('archivo') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
-                    @endif
+                    {{-- @endif --}}
 
                         <div class="row">
                             <div class="col-md-4 mb-3">
@@ -125,12 +125,26 @@
                                 </select>
                                 @error('categoria_id') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
-                             <div class="col-md-4 mb-3">
+                            
+                        </div>
+                        <div class="row">
+                              <div class="col-md-4 mb-3">
+                                <label for="idioma" class="form-label">Idioma</label>
+                                <select wire:model="estado" class="form-select">
+                                    <option value="es">Español</option>
+                                    <option value="en">Inglés</option>
+                                    <option value="pt">Portugués</option>
+                                    <option value="fr">Francés</option>
+                                    <option value="it">Italiano</option>
+                                    <option value="ot">Otro</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
                                 <label for="estado" class="form-label">Estado</label>
                                 <select wire:model="estado" class="form-select">
-                                    <option value="borrador">Borrador</option>
-                                    <option value="publicado">Publicado</option>
-                                    <option value="archivado">Archivado</option>
+                                    <option value="Borrador">Borrador</option>
+                                    <option value="Publicado">Publicado</option>
+                                    <option value="Archivado">Archivado</option>
                                 </select>
                             </div>
                         </div>

@@ -12,6 +12,7 @@ use App\Livewire\Admin\GestionMenuItems;
 use App\Livewire\Admin\GestionMenus;
 use App\Livewire\Admin\GestionRecursos;
 use App\Livewire\Admin\GestionSecciones;
+use App\Livewire\Admin\RecursosSortable;
 use Illuminate\Support\Facades\Auth;
 
 // Asume que tienes un layout de administración y un middleware de autenticación 'auth'
@@ -44,6 +45,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // --- Rutas de Menús ---
     Route::get('/menus', GestionMenus::class)->name('menus.index');
     Route::get('/menus/{menu}/items', GestionMenuItems::class)->name('menus.items.index');
+
+     Route::get('/recursosorteable', RecursosSortable::class)->name('recursosorteable.index');
 
 //Auth::routes();
 

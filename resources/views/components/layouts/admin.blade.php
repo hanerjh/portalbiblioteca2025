@@ -23,6 +23,7 @@
         'resources/assets/static/js/components/dark.js',
         'resources/assets/extensions/summernote/summernote-lite.min.js',
         'resources/assets/static/js/pages/summernote.js',
+         'resources/assets/static/js/jquery-ui.min.js',
         
         ])
     @livewireStyles

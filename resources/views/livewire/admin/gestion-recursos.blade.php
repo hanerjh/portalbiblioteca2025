@@ -18,9 +18,15 @@
         
             
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="card-title mb-0">Gestión de Recursos Digitales</h5>
-            <button wire:click="create()" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Nuevo Recurso</button>
+        <div class="card-header d-flex ">
+            <div class="flex-grow-1">
+
+                <h5 class="card-title mb-0">Gestión de Recursos Digitales</h5>
+            </div>
+            <div class="justify-content-end">
+                <button wire:click="create()" class="btn btn-primary"><i class="bi bi-plus-circle me-1"></i> Nuevo Recurso</button>
+                <a href="{{ route('recursosorteable.index') }}" class="btn btn-warning"><i class="bi bi-arrows-collapse me-1"></i> Ordenar Recurso</a>
+            </div>
         </div>
         <div class="card-body">
             <input wire:model.live.debounce.300ms="search" type="text" class="form-control mb-3" placeholder="Buscar por título...">

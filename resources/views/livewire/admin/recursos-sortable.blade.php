@@ -12,41 +12,54 @@
         @endforeach
     </ul>
 
-    <button wire:click="actualizarOrdenar" class="btn btn-primary mt-3">Guardar Orden</button>
+    {{-- <button wire:click="actualizarOrden" class="btn btn-primary mt-3">Guardar Orden</button> --}}
 </div>
+ 
 
 @push('script')
 
-<!-- CSS del tema base -->
-<link rel="stylesheet"
-      href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- jQuery UI (necesario para sortable) -->
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 
+<!-- jQuery UI desde cdnjs, después de jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
-
+<!-- Script para Livewire + Sortable -->
 <script>
+    function initSortable() {
+        const $el = $('#sortable');
+
+        if (typeof $.ui === 'undefined' || typeof $.ui.sortable !== 'function') {
+            console.error('⛔ jQuery UI sortable NO está disponible');
+            return;
+        }
+
+        if ($el.data('ui-sortable')) $el.sortable('destroy');
+
+        $el.sortable({
+            update: function () {
+                let orden = $el.sortable('toArray', { attribute: 'data-id' });
+                console.log(orden);
+                //Livewire.dispatch('actualizarOrden2');
+                Livewire.dispatch('actualizarOrden', { nuevaLista: orden });
+            }
+        });
+
+        console.log("✅ Sortable activado");
+    }
+
     window.addEventListener('livewire:init', () => {
-        console.log("🟢 Livewire inicializado");
+        console.log("🟢 Livewire iniciado");
+        initSortable();
+    });
 
-        
-            console.log("🔁 Re-render de Livewire - Inicializando sortable");
-
-            $('#sortable').sortable({
-                update: function () {
-                    let orden = $(this).sortable('toArray', { attribute: 'data-id' });
-                    Livewire.dispatch('actualizarOrden', { nuevaLista: orden });
-                }
+    Livewire.hook('commit', ({ succeed }) => {
+        succeed(() => {
+            queueMicrotask(() => {
+                console.log("🔁 Livewire re-render – reinicializando sortable");
+                initSortable();
             });
-       
+        });
     });
 </script>
-
-
 
 @endpush

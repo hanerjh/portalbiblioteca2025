@@ -65,7 +65,8 @@ class GestionPublicaciones extends Component
 
     private function resetInputFields()
     {
-        $this->reset(['titulo', 'slug', 'resumen', 'contenido', 'categoria_id', 'publicacion_id']);
+        //$this->reset(['titulo', 'slug', 'resumen', 'contenido', 'categoria_id', 'publicacion_id']);
+        $this->reset();
         $this->estado = 'borrador';
         $this->destacado = false;
     }
@@ -83,8 +84,10 @@ class GestionPublicaciones extends Component
            // Solo requerir archivo al crear
         if (!$this->publicacion_id) {
             $validate_archivo = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
+            //dd($validate_archivo);
         } else {
             $validate_archivo = 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
+             //dd($validate_archivo);
         }
 
         $this->validate([
@@ -99,33 +102,34 @@ class GestionPublicaciones extends Component
         ]);
 
       
-        
-
-       if ($this->archivo) {
-            //$data['archivo_nombre'] = $this->archivo->getClientOriginalName();
-            $this->archivo_ruta = $this->archivo->store('upload_publicaciones', 'public');
-            //$data['archivo_tamaño'] = $this->archivo->getSize();
-            //$data['tipo_mime'] = $this->archivo->getMimeType();
-        }
-
-        Publicacion::updateOrCreate(['id' => $this->publicacion_id], [
+        $datos=[
             'titulo' => $this->titulo,
             'slug' => $this->slug,
             'resumen' => $this->resumen,
             'contenido' => $this->contenido,
             'video' => $this->video,
             'audio' => $this->audio,
-            'categoria_id' => $this->categoria_id,
-            'imagen_destacada' => $this->archivo_ruta,
+            'categoria_id' => $this->categoria_id,            
             'destacado' => $this->destacado,
             'estado' => $this->estado,
-        ]);
+        ];
+
+       if ($this->archivo) {
+            //$data['archivo_nombre'] = $this->archivo->getClientOriginalName();
+            $this->archivo_ruta = $this->archivo->store('upload_publicaciones', 'public');
+            //$data['archivo_tamaño'] = $this->archivo->getSize();
+            //$data['tipo_mime'] = $this->archivo->getMimeType();
+            $datos['imagen_destacada']= $this->archivo_ruta;
+        }
+
+        Publicacion::updateOrCreate(['id' => $this->publicacion_id], $datos);
 
         session()->flash('message', 
             $this->publicacion_id ? 'Publicación actualizada exitosamente.' : 'Publicación creada exitosamente.');
 
         $this->closeModal();
         $this->resetInputFields();
+        $this->dispatch('recargarPagina'); 
     }
 
     public function edit($id)

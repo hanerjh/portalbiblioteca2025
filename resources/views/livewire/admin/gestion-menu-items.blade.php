@@ -72,6 +72,7 @@
                                 <option value="{{ $parent->id }}">{{ $parent->titulo }}</option>
                                 @endforeach
                             </select>
+                          {{ $parent_id }}
                         </div>
                         <div class="mb-3 form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="activoItemSwitch" wire:model="activo">

@@ -46,13 +46,16 @@ class GestionMenuItems extends Component
 
     public function store()
     {
+        //dd($this->parent_id);
         $this->validate([
             'titulo' => 'required|string|max:100',
             'url' => 'nullable|string|max:255',
             'tipo_enlace' => 'required|in:interno,externo,seccion',
-            'parent_id' => 'nullable|exists:menu_items,id',
+            
             'activo' => 'required|boolean',
         ]);
+
+          
 
         MenuItem::updateOrCreate(['id' => $this->item_id], [
             'menu_id' => $this->menu->id,

@@ -10,6 +10,10 @@ use Livewire\Volt\Volt;
 
 
 Route::resource('/inicio', principalwebController::class);
+/** Ruta de ingreso a paginas, mediante id */
+Route::get('/page/{id}', function (string $id) {
+    return 'User '.$id;
+});
 
 Route::get('/home', fn()=> view('home'));
 

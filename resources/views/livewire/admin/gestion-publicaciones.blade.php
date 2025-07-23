@@ -1,9 +1,5 @@
 <div>
-
-
-
    @include('partials.includes')
- 
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
@@ -35,7 +31,7 @@
                         <tr>
                             <td>{{ $publicacion->titulo }}</td>
                             <td>{{ $publicacion->categoria->nombre }}</td>
-                            <td>
+                            <td >
                                 <span class="badge {{ $publicacion->estado == 'publicado' ? 'bg-success' : ($publicacion->estado == 'borrador' ? 'bg-warning' : 'bg-secondary') }}">
                                     {{ ucfirst($publicacion->estado) }}
                                 </span>
@@ -199,3 +195,4 @@
     <div class="modal-backdrop fade @if($isOpen) show @endif" style="display: @if($isOpen) block @else none @endif;"></div>
 
 </div>
+

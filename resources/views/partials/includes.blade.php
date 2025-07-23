@@ -30,6 +30,10 @@
                
             }, 1000);
         });
+
+        Livewire.on('recargarPagina', () => {
+            location.reload(); // 🔄 Recarga toda la página
+        });
     }
 </script>
 <script src="assets/extensions/simple-datatables/umd/simple-datatables.js"></script>

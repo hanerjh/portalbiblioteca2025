@@ -64,14 +64,7 @@ class GestionEventos extends Component
             'archivo'=>$validate_archivo,
         ]);
 
-        
-       if ($this->archivo) {
-        
-            $this->archivo_ruta = $this->archivo->store('upload_evento', 'public');
-            
-        }
-       
-        Evento::updateOrCreate(['id' => $this->evento_id], [
+        $data=[
             'titulo' => $this->titulo,
             'slug' => Str::slug($this->titulo),
             'descripcion' => $this->descripcion,
@@ -80,14 +73,23 @@ class GestionEventos extends Component
             'organizador' => $this->organizador,
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $this->fecha_fin,
-            'modalidad' => $this->modalidad,
-            'archivo'=> $this->archivo_ruta,
+            'modalidad' => $this->modalidad,           
             'estado' => $this->estado,
-        ]);
+        ];
+
+       if ($this->archivo) {
+        
+            $this->archivo_ruta = $this->archivo->store('upload_evento', 'public');
+            $data['archivo']=$this->archivo_ruta;
+            
+        }
+       
+        Evento::updateOrCreate(['id' => $this->evento_id], $data);
 
         session()->flash('message', 'Evento guardado exitosamente.');
         $this->closeModal();
         $this->resetInputFields();
+        $this->dispatch('recargarPagina');
     }
     
     // --- Métodos auxiliares (create, openModal, closeModal, edit, delete, resetInputFields, updatedTitulo) ---

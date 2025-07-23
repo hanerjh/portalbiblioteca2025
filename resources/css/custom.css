@@ -1,0 +1,195 @@
+/* HEADER NAVIGATION */
+
+header{
+    position: absolute;
+    top:3%;
+    left:5%;
+    z-index: 100;
+    width: 90%;
+    border-radius: 5px;
+ }
+ 
+ header nav li :after{
+     content:' |';
+    }
+
+header nav li:last-child :after{
+    content: "";
+}
+
+
+ section.cabecera{
+    margin: 5px 5px;
+    border: 5px solid;
+    
+ }
+ 
+ .qrcode{
+    width: 90px;
+    border: 5px solid white;
+    position: absolute;
+    right: 2%;
+    bottom: 60px;
+    
+ }
+
+ .video-placeholder{
+    width: 100%; 
+    max-width: 320px;
+    aspect-ratio: 16/9;
+    
+ }
+ 
+.platf-card{
+    background-color:#f6f8f9;
+    border: 0px; 
+    
+}
+
+
+.platf-card i{
+    position: absolute;
+    top:10px;    
+    right:20px;     
+    border-radius: 5px;
+    z-index: 100;    
+}
+
+.platf-card h5{
+    margin-top: 15px;
+}
+/* ESTILOS PERSONALIZADOS DE LOS PALTFORM CARD*/
+.cardRepo{
+    background-color: #0d2745;
+    color: white;
+    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 100% 100%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+   }
+
+.cardRepo a{
+    background-color: white;
+    color: #0d2745;
+    border: 0px;
+}
+.cardRepo i{
+    background-color:white;
+    color: #0d2745;
+    padding: 3px;
+    
+}
+
+.cardCata{
+     background-color: #42b053;
+    color: white;
+    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 100% 100%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+   }
+
+.cardCata a{
+    background-color: #077540;
+    border: 0px;
+}
+.cardCata i{
+    background-color:#077540;
+    color: white;
+    padding: 3px;
+    
+}
+
+.cardRegDig{
+     background-color: #ffbb00;
+    color: black;
+    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 100% 100%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+   }
+
+.cardRegDig a{
+    background-color: #0d2745;
+    border: 0px;
+}
+.cardRegDig i{
+    background-color:#0d2745;
+    color: white;
+    padding: 3px;
+    
+}
+
+.cardPub{
+    background-color: white;
+    color: black;
+    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 100% 100%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+   }
+.cardPub i{
+    background-color:#077540;
+    color: white;
+    padding: 3px;
+}
+
+.cont-noticia{
+    display: grid;
+    grid-template-columns:repeat(3,.5fr);
+    grid-template-rows: 150px 10em ;
+    gap: 5px;
+    
+}
+.noti1{
+    grid-row: 1/3;
+    grid-column: 1/2;
+
+}
+
+.noti2{
+    grid-row: 1/3;
+    grid-column: 3/4;
+}
+
+.cont-noticia h5 {
+   color:#f6f8f9;
+   text-shadow: black;
+   position: absolute;
+   bottom: 10%;
+   font-size: 1.2rem;
+   width: 78%;
+    a{
+        color: white; 
+        text-decoration: none;
+    }
+
+}
+
+.card-img-overlay{
+   -background-image: linear-gradient(to right top, #051937, #0b213c, #132940, #1c3144, #263948);
+    background: #020024;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 0.53) 0%, rgba(37, 50, 69, 0.56) 35%);
+    
+}
+
+.recursos-claves{
+    
+    border-radius: 10px;
+    width: 90%;
+    position: relative;
+    top:-50px;
+    left:4%;
+    z-index: 1000;
+    border:10px solid white  
+}
+
+
+
+
+.opt-rec-clave div a{
+    /* display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: 1fr,1fr; */
+    display: flex;
+    min-height: 80px;
+    max-height: 80px;
+    background-color:#f6f8f9 ;
+    border: 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.opt-rec-clave div a:hover{
+    background-color: #2b432f;
+    color: #f6f8f9;
+    border: 0px;
+}

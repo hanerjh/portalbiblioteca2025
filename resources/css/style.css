@@ -1,0 +1,354 @@
+/* Custom Styles for Unipacífico Biblioteca Template */
+
+/* --- Color Palette --- */
+:root {
+    --primary-green: #006837; /* Dark green from image */
+    --secondary-green: #8BC34A; /* Lighter green badge */
+    --dark-blue: #1a237e;      /* Blue used for some buttons */
+    --light-gray-bg: #f8f9fa; /* Standard light background */
+    --text-muted-custom: #6c757d; /* Standard muted text */
+}
+
+/* --- Helper Classes --- */
+.bg-primary-green {
+    background-color: var(--primary-green) !important;
+}
+
+.text-primary-green {
+    color: var(--primary-green) !important;
+}
+
+.btn-primary-green {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: #fff;
+}
+
+.btn-primary-green:hover {
+    background-color: #00502a; /* Slightly darker green */
+    border-color: #00502a;
+    color: #fff;
+}
+
+.bg-secondary-green {
+    background-color: var(--secondary-green) !important;
+    color: #fff; /* Ensure text is readable */
+}
+
+.btn-dark-blue {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+    color: #fff;
+}
+
+.btn-dark-blue:hover {
+    background-color: #10164a; /* Slightly darker blue */
+    border-color: #10164a;
+    color: #fff;
+}
+
+
+
+/* --- Section Specific Styles --- */
+
+/* Hero Section */
+.hero-section {
+    /*background: url('/public/frontend_img/CAMPUS.jpg') no-repeat;*/
+    background-size: cover;
+    min-height: 500px; /* Adjust as needed */
+    position: relative;
+    color: #fff; /* Default text color */
+    border-radius: 10px;
+}
+
+.hero-section img.bgimg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+
+
+/* Add a dark overlay for better text readability */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.192); /* Adjust darkness */
+    z-index: 1;
+    border-radius: 7px;
+}
+
+/* Ensure content is above the overlay */
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+   
+}
+
+.hero-section h1 , .cabecera h1{
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Add shadow to title */
+    font-size: 1.8em;
+}
+.hero-section a.btn, .cabecera a.btn{
+    background-color: #e7bf0c;
+    border: 0px;
+    &:hover{
+        background-color: #ffd102;
+        color: #000000;
+    }
+    
+}
+
+.video-placeholder {
+    border: 1 solid #000000;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; Center icon vertically 
+    align-items: center;  Center icon horizontally */
+    color: var(--text-muted-custom);
+    
+}
+
+.video-placeholder .progress {
+    background-color: #555; /* Darker background for progress bar */
+}
+
+
+
+/* Cabecera carousel pagina principal */
+
+    .cabecera{
+        position: relative;
+        margin: 10px;
+        border: 5px solid white;
+        border-radius:10px;
+    }
+
+    .cabecera::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.192); /* Adjust darkness */
+    z-index: 1;
+    border-radius: 12px;
+}
+.carousel-caption{
+ top:30%;
+}
+
+div.cabecera .carousel-caption{
+ text-align: left;
+}
+.img-cover {
+  width: 300px;        /* o 100% según el caso */
+  height: 500px;
+  -border-radius: 12px;
+  object-fit: cover;
+}
+ .carousel-inner{
+    border-radius: 12px;
+}
+/* Cabecera carousel pagina principal */
+
+
+
+/* Recursos Clave Buttons */
+.btn-light.text-primary-green {
+    color: var(--primary-green) !important;
+    font-weight: 500; /* Match boldness */
+}
+
+.btn-light.text-primary-green:hover {
+    background-color: #e2e6ea; /* Standard light hover */
+}
+
+
+/* Plataformas Digital Cards */
+.card {
+    border-radius: 0.375rem; /* Standard Bootstrap card radius */
+    transition: transform 0.2s ease-in-out, 0.2s ease-in-out;
+    position: relative;
+}
+.card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Noticias Cards */
+.news-card {
+    position: relative;
+    overflow: hidden; /* Hide overflowing icon parts */
+}
+.news-card .card-img-top {
+    -height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensure image covers the area */ 
+    
+}
+
+
+
+.news-card .stretched-link-icon {
+    position: absolute;
+    bottom: 1rem;
+    right: 0.4rem;
+    font-size: 1.8rem; /* Make icon larger */
+    color: white;
+    -background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    z-index: 2; /* Ensure it's above card body */
+}
+
+.news-card:hover .stretched-link-icon {
+    color: var(--primary-green);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+
+/* Haz tu solicitud List */
+.requests-list{
+    
+    -background-color: #0c3b70;
+    background-color: #0c705c;
+    border-radius: 5px;
+    padding: 10px 5px;
+    
+}
+
+.requests-list > div{
+    -background-color: #f8f9fa;
+    -padding: 5px 0px;
+    border-bottom: 3px solid rgb(3, 65, 49);
+    margin:5px;
+    
+}
+.requests-list h4{
+    color: rgb(255, 255, 255);
+   text-align:center;
+   
+   margin-top: 10px;
+    font-size: 1.1rem;
+}
+.requests-list p{
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: -15px;
+    font-size: .8rem;
+    
+}
+.requests-list img{
+ float: left;
+ }
+ 
+.requests-list li {
+ -background-color: #f8f9fa;
+ color: white;
+ padding: 5px;
+ border-radius: 5px;
+ font-size: .8rem;
+ 
+}
+
+.requests-list li:hover {
+    position: relative;
+    -background-color: #42b053;
+    background-color: rgb(2, 62, 90);
+    padding: 5px 5px 5px 12px;
+    left: -10px;
+    border-radius: 5px;
+    font-size: .8rem;
+    color: rgb(255, 255, 255);
+    i{
+        color: rgb(255, 255, 255);
+    }
+    
+   }
+
+.requests-list i {
+   width: 35px; /* Ensure consistent icon spacing */
+   color: #ffffff;
+   
+}
+
+/* Novedades Bibliográficas */
+.card img.card-img-top {
+    aspect-ratio: 2/3; /* Common book cover aspect ratio */
+    object-fit: cover;   
+    border-radius: 0.3rem; /* Slight rounding */
+}
+
+/* Footer */
+.footer-links a:hover {
+    text-decoration: underline !important;
+    color: var(--secondary-green) !important;
+    
+}
+
+footer{
+    background: linear-gradient(rgba(9, 81, 63, 0.64)), url('/public/frontend_img/biblio.png') no-repeat;
+    filter: blur(50%);
+    background-size: cover;
+    position: relative;
+}
+footer img{
+    -position: absolute;
+    filter: drop-shadow(0px 0px 0.5px  rgba(255, 255, 255, 0.959));
+}
+/* footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(6, 138, 105, 0.493); /* Adjust darkness 
+    -z-index: 1;
+    
+} 
+*/
+
+/* Responsive Adjustments (Example) */
+@media (max-width: 767.98px) {
+    .hero-section {
+        text-align: center; /* Center text on small screens */
+    }
+     .hero-section .row {
+        flex-direction: column-reverse; /* Stack video above text on mobile */
+    }
+     .hero-section .d-flex.flex-column {
+        align-items: center !important; /* Center video/QR on mobile */
+    }
+     .video-placeholder {
+         max-width: 100%;
+     }
+    .qr-code {
+        margin-top: 1rem;
+    }
+    .footer {
+        text-align: center;
+    }
+    .footer .col-md-3.offset-md-1 {
+        offset: unset; /* Remove offset on smaller screens */
+    }
+     .footer .row .col-6 {
+         text-align: left; /* Keep list items left-aligned */
+         margin-bottom: 1rem;
+     }
+}

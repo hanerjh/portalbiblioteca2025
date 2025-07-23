@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\principalwebController;
 use App\Livewire\Admin\GestionEventos;
 use App\Livewire\Admin\GestionPublicaciones;
 use App\Livewire\Admin\Publicacion;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 
+Route::resource('/inicio', principalwebController::class);
 
 Route::get('/home', fn()=> view('home'));
 

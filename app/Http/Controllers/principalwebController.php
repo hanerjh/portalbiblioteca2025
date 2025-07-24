@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuItem;
 use App\Models\Publicacion;
+use App\Models\RecursoDigital;
 use Illuminate\Http\Request;
 
 class principalwebController extends Controller
@@ -12,13 +14,25 @@ class principalwebController extends Controller
      */
     public function index()
     {
-        //
+        //Consultar las publicaciones
         $publicaciones = Publicacion::where('estado','Publicado')
         ->latest()
         ->limit(5)
         ->get();
-        
-        return view('biblioteca_index',compact('publicaciones'));
+
+        //Seleccionamos los enlaces que pertenecen al menu id (3) Solcitudes
+        $menu=MenuItem::where(['menu_id'=>3, 'activo'=>1])
+                               ->whereNull('parent_id')
+                               ->with('children')
+                               ->orderBy('orden')
+                               ->get();
+
+        $recursos = RecursoDigital::with('categoria')
+            ->Where(['activo'=>1, 'destacado'=>1])
+            ->latest()
+            ->paginate(10);
+
+        return view('biblioteca_index',compact('publicaciones','menu', 'recursos'));
     }
 
     /**

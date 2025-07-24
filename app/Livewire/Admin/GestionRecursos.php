@@ -11,13 +11,14 @@ use App\Models\TipoUsuario;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class GestionRecursos extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     // Propiedades del modelo
-    public $titulo, $descripcion, $url, $categoria_id, $proveedor, $tipo_acceso, $recurso_id;
+    public $titulo, $descripcion, $url, $categoria_id, $proveedor, $tipo_acceso, $recurso_id,$archivo_ruta, $archivo, $activo, $destacado;
     public array $tipo_usuario_form = [];
     public array $area_conocimiento_form = [];
     public array $programa_form = [];
@@ -93,13 +94,25 @@ class GestionRecursos extends Component
         $this->reset([
             'titulo', 'descripcion', 'url', 'categoria_id', 
             'proveedor', 'recurso_id', 'tipo_usuario_form', 
-            'area_conocimiento_form', 'programa_form'
+            'area_conocimiento_form', 'programa_form','activo','destacado'
         ]);
         $this->tipo_acceso = 'Acceso abierto'; // Valor por defecto
+       
+         
     }
 
     public function store()
     {
+             // Solo requerir archivo al crear
+        if (!$this->recurso_id) {
+            $validate_archivo = 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240'; // 10MB Max
+            //dd($validate_archivo);
+        } else {
+            $validate_archivo = 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx,ppt,pptx|max:10240';
+             //dd($validate_archivo);
+        }
+
+
         $this->validate([
             'titulo' => 'required|string|max:200',
             'categoria_id' => 'required|exists:categorias_recurso,id',
@@ -107,16 +120,32 @@ class GestionRecursos extends Component
             'url' => 'required|url',
             'proveedor' => 'nullable|string|max:150',
             'descripcion' => 'nullable|string',
+            'archivo' => $validate_archivo,
         ]);
 
-        $result_recurso = RecursoDigital::updateOrCreate(['id' =>(int) $this->recurso_id], [
+      $datos=[
             'titulo' => $this->titulo,
             'descripcion' => $this->descripcion,
             'url' => $this->url,
             'categoria_id' => $this->categoria_id,
             'proveedor' => $this->proveedor,
             'tipo_acceso' => $this->tipo_acceso,
-        ]);
+            'activo' => $this->activo,
+            'destacado' => $this->destacado ?? false,
+            
+        ];
+
+        if ($this->archivo) {
+            //$data['archivo_nombre'] = $this->archivo->getClientOriginalName();
+            $this->archivo_ruta = $this->archivo->store('recursos', 'public');
+            //$data['archivo_tamaño'] = $this->archivo->getSize();
+            //$data['tipo_mime'] = $this->archivo->getMimeType();
+            $datos['imagen_recurso']= $this->archivo_ruta;
+        }
+
+
+
+        $result_recurso = RecursoDigital::updateOrCreate(['id' =>(int) $this->recurso_id], $datos);
     
         // Sincronizar relaciones muchos a muchos
         $result_recurso->areasConocimiento()->sync($this->area_conocimiento_form);
@@ -139,6 +168,8 @@ class GestionRecursos extends Component
         $this->categoria_id = $recurso->categoria_id;
         $this->proveedor = $recurso->proveedor;
         $this->tipo_acceso = $recurso->tipo_acceso;
+        $this->activo = $recurso->activo;
+        $this->destacado = $recurso->destacado;
         
         // Cargar relaciones existentes
         $this->tipo_usuario_form = $recurso->tiposUsuario->pluck('id')->toArray();

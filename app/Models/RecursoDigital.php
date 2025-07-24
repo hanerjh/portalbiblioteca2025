@@ -12,7 +12,7 @@ class RecursoDigital extends Model
     protected $fillable = [
         'titulo', 'descripcion', 'url', 'categoria_id', 'proveedor', 'tipo_acceso', 'usuario_acceso',
         'password_acceso', 'instrucciones_acceso', 'fecha_suscripcion_inicio', 'fecha_suscripcion_fin',
-        'costo_anual', 'idioma', 'cobertura_temporal', 'activo', 'destacado'
+        'costo_anual', 'idioma', 'cobertura_temporal', 'activo', 'destacado','imagen_recurso'
     ];
 
     public function categoria()

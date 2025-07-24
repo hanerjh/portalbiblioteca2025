@@ -59,6 +59,11 @@
                             <input type="text" wire:model="titulo" class="form-control">
                             @error('titulo') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">icono</label>
+                            <input type="text" wire:model="icono" class="form-control">
+                            @error('icono') <span class="text-danger small">{{ $message }}</span> @enderror
+                        </div>
                          <div class="mb-3">
                             <label for="url" class="form-label">URL o Ruta</label>
                             <input type="text" wire:model="url" class="form-control">

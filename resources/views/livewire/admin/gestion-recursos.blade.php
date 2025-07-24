@@ -145,6 +145,15 @@
                                 @error('proveedor') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="archivo" class="form-label">Cargar Imagen</label>
+                            <input type="file" wire:model="archivo" class="form-control" id="archivo">
+                             <div wire:loading wire:target="archivo" class="text-primary small mt-1">Cargando...</div>
+                            @if($recurso_id) <small class="form-text text-muted">Dejar en blanco para no modificar el archivo actual.</small> @endif
+                            @error('archivo') <span class="text-danger small">{{ $message }}</span> @enderror
+                        </div>
+
                         <div class="mb-3">
                             <label for="url" class="form-label">URL de Acceso</label>
                             <input type="url" wire:model="url" class="form-control" id="url" placeholder="https://...">
@@ -154,6 +163,14 @@
                             <label for="descripcion" class="form-label">Descripción</label>
                             <textarea wire:model="descripcion" class="form-control" id="descripcion" rows="4"></textarea>
                             @error('descripcion') <span class="text-danger small">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="activoItemSwitch" wire:model="activo">
+                            <label class="form-check-label" for="activoItemSwitch">Activo {{$activo}}</label>
+                        </div>
+                        <div class="mb-3 form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="activoItemSwitch" wire:model="destacado">
+                            <label class="form-check-label" for="activoItemSwitch">Destacado {{$destacado}}</label>
                         </div>
                     </form>
                 </div>

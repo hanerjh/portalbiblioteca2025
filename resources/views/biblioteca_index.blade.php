@@ -223,55 +223,22 @@
                             y eventos de la Biblioteca</p>
                     </div>
                     <div class="cont-noticia">
-                        <div class="noti1">
+                        @foreach ($publicaciones as $pub )
+                       
+                        <div class="{{ $loop->index === 0 ? 'noti1' : '' }}">
                             <div class="card news-card shadow-sm h-100">
-                                <img src="https://biblioteca.unipacifico.edu.co/biblioteca/storage/app/public/asset/img/noticias/1654035622WhatsApp%20Image%202022-05-23%20at%209.57.17%20AM.jpeg"
+                                <img src="storage/{{ $pub->imagen_destacada ?? 'frontend_img/CAMPUS.jpg' }}"
                                     class="card-img-top" alt="Noticia 2">
                                 <div class="card-img-overlay">
-                                    <h5 class="card-title "><a href="#">Conmemoración día internacional de la
-                                            mujer</a></h5>
+                                    <h5 class="card-title "><a href="#">{{ ucfirst($pub->titulo)}}</a></h5>
                                 </div>
-                                <a href="#" class="stretched-link-icon"><i
+                                <a href="noticias/{{ $pub->id }}" class="stretched-link-icon"><i
                                         class="bi bi-arrow-right-circle-fill"></i></a>
                             </div>
                         </div>
-
-                        <div class="noti2">
-                            <div class="card news-card shadow-sm h-100">
-                                <img src="https://biblioteca.unipacifico.edu.co/biblioteca/storage/app/public/asset/img/noticias/1658184906WhatsApp%20Image%202022-07-14%20at%2010.41.03%20AMdddd.jpeg"
-                                    class="card-img-top" alt="Noticia 2">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title "><a href="#">Conmemoración día internacional de la
-                                            mujer</a></h5>
-                                </div>
-                                <a href="#" class="stretched-link-icon"><i
-                                        class="bi bi-arrow-right-circle-fill"></i></a>
-                            </div>
-                        </div>
-                        <div class="noti3">
-                            <div class="card news-card shadow-sm h-100">
-                                <img src="https://biblioteca.unipacifico.edu.co/biblioteca/storage/app/public/asset/img/noticias/1647098195WhatsApp%20Image%202022-03-08%20at%2010.03.22%20AM.jpeg"
-                                    class="card-img-top" alt="Noticia 3">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title"><a href="#">Debate: día de la afrocolombianidad</a>
-                                    </h5>
-                                </div>
-                                <a href="#" class="stretched-link-icon"><i
-                                        class="bi bi-arrow-right-circle-fill"></i></a>
-                            </div>
-                        </div>
-                        <div class="noti4"> <!-- Hidden on small, shown on med+, only if 4th needed -->
-                            <div class="card news-card shadow-sm h-100">
-                                <img src="https://biblioteca.unipacifico.edu.co/biblioteca/storage/app/public/asset/img/noticias/1728344956Festival%20ComicUnpaPeque.png"
-                                    class="card-img-top" alt="Noticia 4">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title"><a href="#">Festival Cómic UNPA! Celebración día de
-                                            la afrocolombianidad</a></h5>
-                                </div>
-                                <a href="#" class="stretched-link-icon"><i
-                                        class="bi bi-arrow-right-circle-fill"></i></a>
-                            </div>
-                        </div>
+                        @endforeach
+                        <a href="#" style="text-decoration: none; color:black;"> <i class="bi bi-plus-square"></i> Ver más publicaciones</a>
+                       
                     </div>
 
                 </div>
@@ -288,37 +255,14 @@
                         <p>Haz tus solicitudes de Biblioteca facilmente</p>
                     </div>
                     <ul class="list-unstyled ">
-                        <li class="mb-1 d-flex align-items-center">
-                            <i class="fi fi-ts-workshop fs-5"></i>
-                            <!-- <i class="bi bi-people-fill fs-5 mx-2"></i> -->
-                            <span>Solicitud de formación a usuario</span>
-                        </li>
-                        <li class="mb-1 d-flex align-items-center">
-                            <i class="fi fi-ts-e-learning fs-5"></i>
-                            <!-- <i class="bi bi-hdd-stack-fill fs-5  mx-2"></i> -->
-                            <span>Solicitud acceso a Recursos Digitales</span>
-                        </li>
-                        <li class="mb-1 d-flex align-items-center">
-
-                            <i class="fi fi-ts-people-roof fs-5"></i>
-                            <!-- <i class="bi bi-grid-1x2-fill fs-5  mx-2"></i> -->
-                            <span>Solicitud de espacios </span>
-                        </li>
-                        <li class="mb-1 d-flex align-items-center">
-                            <i class="fi fi-tr-speech-bubble-story fs-5"></i>
-                            <!-- <i class="bi bi-cart-plus-fill fs-5  mx-2"></i> -->
-                            <span>Solicitud de compra material Bibliográfico</span>
-                        </li>
-                        <li class="mb-1 d-flex align-items-center">
-                            <i class="fi fi-ts-braille-j fs-5"></i>
-                            <!-- <i class="bi bi-universal-access fs-5  mx-2"></i> -->
-                            <span>Servicios de inclusión</span>
-                        </li>
-                        <li class="mb-1 d-flex align-items-center">
-                            <i class="fi fi-ts-school fs-5"></i>
-                            <!-- <i class="bi bi-building-fill-check fs-5  mx-2"></i> -->
-                            <span>Convenios Interbibliotecarios</span>
-                        </li>
+                        @foreach ($menu as $menuitem)
+                            <li class="mb-1 d-flex align-items-center">
+                                <i class="{{ $menuitem->icono }}"></i>
+                                <!-- <i class="bi bi-people-fill fs-5 mx-2"></i> -->
+                                <span><a href="{{ $menuitem->url }}"> {{$menuitem->titulo}}</a></span>
+                            </li>
+                        @endforeach
+                        
                     </ul>
                 </aside>
             </div>
@@ -338,6 +282,12 @@
                     <p class="text-muted mb-4">Ingresa a las principales plataformas de la Biblioteca y del campus con
                         un clic</p>
                     <div class="d-flex flex-wrap align-items-center gap-4">
+
+                        @foreach ( $recursos as $recurso )
+                            <a href="{{ $recurso->url }}"><img src="storage/{{ $recurso->imagen_recurso }}"
+                                alt="{{ $recurso->titulo }}" style="height: 40px;"></a>
+                        @endforeach
+
                         <a href="#"><img src="{{ url('frontend_img/Turnitin_logo_(2021).svg.png') }}"
                                 alt="Turnitin Logo" style="height: 40px;"></a>
                         <a href="#"><img src="frontend_img/ebsco_1.png" alt="EBSCOhost Logo"

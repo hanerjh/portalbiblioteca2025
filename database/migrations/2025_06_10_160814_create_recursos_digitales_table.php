@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('titulo', 200);
             $table->longText('descripcion')->nullable();
+            $table->string('imagen_recurso', 500)->nullable();
             $table->string('url', 500)->nullable();
             $table->integer('categoria_id')->index('idx_recursos_categoria');
             $table->string('proveedor', 150)->nullable();

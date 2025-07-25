@@ -171,11 +171,19 @@
                                     <input type="url" wire:model="video" class="form-control" id="video">
                                     @error('video') <span class="text-danger small">{{ $message }}</span>@enderror
                                 </div>
+                                 <div class="mb-3 form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="activoItemSwitch" wire:model="activarvideo">
+                                    <label class="form-check-label" for="activoItemSwitch">{{$activarvideo ? 'Activo':'Inactivo'}}</label>
+                                </div>
 
                                 <div class="mb-3">
                                     <label for="audio" class="form-label">URL Audio</label>
                                     <input type="text" wire:model="audio" class="form-control" id="audio">
                                     @error('audio') <span class="text-danger small">{{ $message }}</span>@enderror
+                                </div>
+                                  <div class="mb-3 form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="activoItemSwitch" wire:model="activaraudio">
+                                    <label class="form-check-label" for="activoItemSwitch">{{$activaraudio ? 'Activo':'Inactivo'}}</label>
                                 </div>
                                 </div>
                                 </div>

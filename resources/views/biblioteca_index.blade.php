@@ -82,11 +82,13 @@
                             </a>
                         </div>
                         <!-- Video Placeholder & QR Code -->
-                        <div class="col-lg-6 mt-5">
+                        <div class="col-lg-6">
                             <div class="d-flex justify-content-center">
                                 <!-- Video Placeholder -->
                                 @if(!empty($publicacion->url_video))
-                                    <div class="video-placeholder bg-dark p-3 rounded text-center"></div>
+                                    
+                                        <iframe width="460" height="250" mb-5 src="{{ $publicacion->url_video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                  
                                 @endif
                                 <!-- QR Code -->
                                 <div class="qrcode ms-3">
@@ -125,22 +127,15 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="row g-3 opt-rec-clave">
-                        <div class="col-md-3"><a href="#"
-                                class="btn  w-100  text-secundary fw-semibold">Entrega de Trabajos de grados</a></div>
-                        <div class="col-md-3"><a href="#" class="btn  w-100  text-secundary fw-semibold">Ética
-                                académica y Antiplagio</a></div>
-                        <div class="col-md-3"><a href="#"
-                                class="btn  w-100  text-secundary fw-semibold">Recursos de aprendizaje</a></div>
-                        <div class="col-md-3"><a href="#" class="btn  w-100  text-secundary fw-semibold">Mi
-                                estado en Biblioteca</a></div>
-                        <div class="col-md-3"><a href="#"
-                                class="btn  w-100  text-secundary fw-semibold">Normatividad Biblioteca</a></div>
-                        <div class="col-md-3"><a href="#" class="btn  w-100  text-secundary fw-semibold">Evalúa
-                                nuestros servicios</a></div>
-                        <div class="col-md-3"><a href="#" class="btn  w-100  text-secundary fw-semibold">Centro
-                                de formación a usuario</a></div>
-                        <div class="col-md-3"><a href="#"
-                                class="btn  w-100  text-secundary fw-semibold">Consulta al Bibliotecario</a></div>
+                        @foreach ($menu as $menuRecursos )
+                            @if ($menuRecursos->menu_id==4)
+                            <div class="col-md-3" ><a href="#"
+                                class="btn  w-100  text-secundary fw-semibold">{{$menuRecursos->titulo}}</a></div> 
+                            @endif
+                            
+                        @endforeach
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -255,12 +250,18 @@
                         <p>Haz tus solicitudes de Biblioteca facilmente</p>
                     </div>
                     <ul class="list-unstyled ">
+
                         @foreach ($menu as $menuitem)
-                            <li class="mb-1 d-flex align-items-center">
-                                <i class="{{ $menuitem->icono }}"></i>
-                                <!-- <i class="bi bi-people-fill fs-5 mx-2"></i> -->
-                                <span><a href="{{ $menuitem->url }}"> {{$menuitem->titulo}}</a></span>
-                            </li>
+                            
+                            @if ($menuitem->menu_id==3)
+                                <li class="mb-1 d-flex align-items-center" >
+                                    <i class="{{ $menuitem->icono }}"></i>
+                                    <!-- <i class="bi bi-people-fill fs-5 mx-2"></i> -->
+                                    <span><a href="{{ $menuitem->url }}"> {{$menuitem->titulo}}</a></span>
+                                </li>
+                                    
+                            @endif
+                            
                         @endforeach
                         
                     </ul>
@@ -334,43 +335,27 @@
             <p class="text-center text-muted mb-5">Conoce las últimas incorporaciones a nuestro catálogo bibliográfico
             </p>
             <div class="row g-4">
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="card h-100 border-0">
-                        <img src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg"
-                            class="card-img-top shadow" alt="Libro 1">
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="card h-100 border-0">
-                        <img src="https://i.pinimg.com/236x/5b/55/88/5b5588929b6f46d55f62e775c3e8d101.jpg"
-                            class="card-img-top shadow" alt="Libro 2">
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="card h-100 border-0">
-                        <img src="https://marketplace.canva.com/EAFjNCKkDPI/2/0/1003w/canva-portada-de-libro-de-fantas%C3%ADa-dram%C3%A1tico-verde-vrb3LHyOaXg.jpg"
-                            class="card-img-top shadow" alt="Libro 3">
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="card h-100 border-0">
-                        <img src="https://marketplace.canva.com/EADzX_t5SqM/1/0/1003w/canva-negro-amarillo-genio-autobiograf%C3%ADa-libro-portada-wC1-qRm5i0Q.jpg"
-                            class="card-img-top shadow" alt="Libro 4">
-                    </div>
-                </div>
-                <!-- Add more books as needed - keep adding col-6 col-md-4 col-lg-2 -->
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="card h-100 border-0">
-                        <img src="https://edit.org/img/blog/wdn-editar-portadas-de-libros-gratis.webp"
-                            class="card-img-top shadow" alt="Libro 5">
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="card h-100 border-0">
-                        <img src="https://marketplace.canva.com/EAFEL6G6JSU/1/0/1003w/canva-portada-de-libro-pdf-electr%C3%B3nico-digital-silueta-persona-rosa-azul-oS2hyQNbxmM.jpg"
-                            class="card-img-top shadow" alt="Libro 6">
-                    </div>
-                </div>
+
+
+                @isset($data)
+                        @forelse ($data as $datakoha)
+                    <div class="col-6 col-md-4 col-lg-2">
+                       <div class="card h-100 border-0">
+                            <a href="https://catalogo.unipacifico.edu.co/cgi-bin/koha/opac-detail.pl?biblionumber={{$datakoha[0]}}"
+                                target="blank" data-toggle="tooltip" data-placement="top" title="{{$datakoha[1]}}"><img
+                                    class="card-img-top shadow"
+                                    src="https://catalogo.unipacifico.edu.co/cgi-bin/koha/opac-image.pl?thumbnail=1&biblionumber={{$datakoha[0]}}"
+                                    alt="{{$datakoha[1]}}"></a>
+                            {{-- <small class="text-white ">{{$datakoha[1]}}</small> --}}
+                        </div>
+                         </div>
+                        @empty
+                           <p>No hay conexión</p>
+                        @endforelse
+                    @endisset
+
+
+                
             </div>
         </div>
     </section>

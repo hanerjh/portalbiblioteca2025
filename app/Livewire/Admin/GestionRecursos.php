@@ -168,8 +168,19 @@ class GestionRecursos extends Component
         $this->categoria_id = $recurso->categoria_id;
         $this->proveedor = $recurso->proveedor;
         $this->tipo_acceso = $recurso->tipo_acceso;
-        $this->activo = $recurso->activo;
-        $this->destacado = $recurso->destacado;
+        if($recurso->activo==1){
+
+            $this->activo = true;
+        }
+        else{
+            $this->activo = false;
+        }
+        if($recurso->destacado==1){
+
+            $this->destacado = true;
+        }else{
+            $this->destacado = false;
+        }
         
         // Cargar relaciones existentes
         $this->tipo_usuario_form = $recurso->tiposUsuario->pluck('id')->toArray();

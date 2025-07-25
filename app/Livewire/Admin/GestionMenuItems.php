@@ -64,7 +64,7 @@ class GestionMenuItems extends Component
         $this->reset([
             'titulo', 'url', 'tipo_enlace', 'parent_id', 'orden', 'activo', 'target_blank', 'item_id','icono'
         ]);
-        $this->activo = true;
+       $this->activo=true;
         $this->tipo_enlace = 'interno';
     }
 
@@ -104,8 +104,21 @@ class GestionMenuItems extends Component
         $this->tipo_enlace = $item->tipo_enlace;
         $this->parent_id = $item->parent_id;
         $this->orden = $item->orden;
-        $this->activo = $item->activo;
-        $this->target_blank = $item->target_blank;
+        if($item->activo==1){
+
+            $this->activo = true;
+        }
+        else{
+            $this->activo = false;
+        }
+        if($item->target_blank==1){
+
+            $this->target_blank  = true;
+        }else{
+            $this->target_blank  = false;
+        }
+      
+        
         $this->openModal();
     }
 

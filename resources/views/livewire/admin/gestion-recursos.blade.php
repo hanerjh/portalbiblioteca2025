@@ -166,11 +166,11 @@
                         </div>
                         <div class="mb-3 form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="activoItemSwitch" wire:model="activo">
-                            <label class="form-check-label" for="activoItemSwitch">Activo {{$activo}}</label>
+                            <label class="form-check-label" for="activoItemSwitch">Activo </label>
                         </div>
                         <div class="mb-3 form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="activoItemSwitch" wire:model="destacado">
-                            <label class="form-check-label" for="activoItemSwitch">Destacado {{$destacado}}</label>
+                            <label class="form-check-label" for="activoItemSwitch">Destacado</label>
                         </div>
                     </form>
                 </div>

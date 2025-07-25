@@ -19,7 +19,7 @@ class GestionPublicaciones extends Component
 
     // Propiedades del modelo
     public $titulo, $slug, $resumen,  $categoria_id,$categoria, $estado, $publicacion_id, $destacado, $label_destacado="Inactivo",$archivo,$archivo_ruta;
-    public $video, $audio;
+    public $video, $audio, $activarvideo, $activaraudio;
     // Propiedades de la UI
     public $isOpen = false;
     public $search = '';
@@ -108,10 +108,13 @@ class GestionPublicaciones extends Component
             'resumen' => $this->resumen,
             'contenido' => $this->contenido,
             'video' => $this->video,
+            'activar_video' => $this->activarvideo,
             'audio' => $this->audio,
+            'activar_audio' => $this->activaraudio,
             'categoria_id' => $this->categoria_id,            
             'destacado' => $this->destacado,
             'estado' => $this->estado,
+
         ];
 
        if ($this->archivo) {
@@ -143,6 +146,12 @@ class GestionPublicaciones extends Component
         $this->categoria_id = $publicacion->categoria_id;
         $this->estado = $publicacion->estado;
         $this->destacado = $publicacion->destacado;
+        
+        if($publicacion->activar_video==1){
+
+            $this->activarvideo = true;
+        }
+         $this->activaraudio = $publicacion->activar_audio;
         
         $this->chage_destacado();
         $this->dispatch('mostrarModalEdicion', contenido: $this->contenido, destacado:  $this->destacado);

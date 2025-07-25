@@ -53,7 +53,11 @@ class GestionMenus extends Component
         $this->nombre = $menu->nombre;
         $this->descripcion = $menu->descripcion;
         $this->posicion = $menu->posicion;
-        $this->activo = $menu->activo;
+        if($menu->activo==1){
+          $this->activo=true;  
+        }else{
+             $this->activo=false;
+        }  
         $this->openModal();
     }
 

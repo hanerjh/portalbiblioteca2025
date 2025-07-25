@@ -7,7 +7,7 @@ use App\Livewire\Admin\Publicacion;
 use App\Models\CategoriaEvento;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
-
+use App\Livewire\Frontend\PaginaRecursos; 
 
 Route::resource('/inicio', principalwebController::class);
 /** Ruta de ingreso a paginas, mediante id */
@@ -20,6 +20,11 @@ Route::get('/home', fn()=> view('home'));
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+
+// Ruta pública para ver los recursos
+Route::get('/recursos-electronicos', PaginaRecursos::class)->name('recursos.public.index');
+
 
 /* Route::get('/publicaciones', GestionPublicaciones::class)->name('publicaciones.index');
 Route::get('/eventos', GestionEventos::class)->name('eventos.index'); */

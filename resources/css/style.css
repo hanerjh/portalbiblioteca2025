@@ -152,7 +152,7 @@ div.cabecera .carousel-caption{
 }
 .img-cover {
   width: 300px;        /* o 100% según el caso */
-  height: 500px;
+  height: 600px;
   -border-radius: 12px;
   object-fit: cover;
 }

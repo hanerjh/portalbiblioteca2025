@@ -11,7 +11,7 @@ class Publicacion extends Model
     protected $table = 'publicaciones';
     protected $fillable = [
         'titulo', 'slug', 'resumen', 'contenido', 'imagen_destacada', 'categoria_id', 
-        'autor', 'fecha_publicacion', 'estado', 'destacado'
+        'autor', 'fecha_publicacion', 'estado', 'destacado','activar_video','activar_audio'
     ];
     protected $casts = ['fecha_publicacion' => 'datetime'];
 

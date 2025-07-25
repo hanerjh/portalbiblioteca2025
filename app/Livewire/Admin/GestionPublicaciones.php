@@ -101,16 +101,16 @@ class GestionPublicaciones extends Component
             'archivo'=>$validate_archivo,
         ]);
 
-      
+   
         $datos=[
             'titulo' => $this->titulo,
             'slug' => $this->slug,
             'resumen' => $this->resumen,
             'contenido' => $this->contenido,
             'video' => $this->video,
-            'activar_video' => $this->activarvideo,
             'audio' => $this->audio,
-            'activar_audio' => $this->activaraudio,
+            'activar_video' => (int) $this->activarvideo,
+            'activar_audio' => (int) $this->activaraudio,
             'categoria_id' => $this->categoria_id,            
             'destacado' => $this->destacado,
             'estado' => $this->estado,
@@ -146,12 +146,18 @@ class GestionPublicaciones extends Component
         $this->categoria_id = $publicacion->categoria_id;
         $this->estado = $publicacion->estado;
         $this->destacado = $publicacion->destacado;
+        $this->video = $publicacion->url_video;
+        $this->audio = $publicacion->url_audio;
         
         if($publicacion->activar_video==1){
 
             $this->activarvideo = true;
         }
-         $this->activaraudio = $publicacion->activar_audio;
+        if($publicacion->activar_audio==1){
+
+            $this->activaraudio = true;
+        }
+         
         
         $this->chage_destacado();
         $this->dispatch('mostrarModalEdicion', contenido: $this->contenido, destacado:  $this->destacado);

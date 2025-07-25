@@ -85,10 +85,17 @@
                         <div class="col-lg-6">
                             <div class="d-flex justify-content-center">
                                 <!-- Video Placeholder -->
-                                @if(!empty($publicacion->url_video))
+                                @if(!empty($publicacion->url_video) && $publicacion->activar_video)
                                     
-                                        <iframe width="460" height="250" mb-5 src="{{ $publicacion->url_video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                        <iframe width="460" height="250" mb-5 src="https://www.youtube.com/embed/{{ $publicacion->url_video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                   
+                                @endif
+                                <br>
+                                @if(!empty($publicacion->url_audio) && $publicacion->activar_audio)
+                                    <audio controls>
+                                        <source src="https://unipacificoeduco-my.sharepoint.com/personal/haner_unipacifico_edu_co/Documents/BIBLIOTECA/{{ $publicacion->url_audio }}" type="audio/mpeg">
+                                        Tu navegador no soporta el elemento de audio.
+                                    </audio>
                                 @endif
                                 <!-- QR Code -->
                                 <div class="qrcode ms-3">

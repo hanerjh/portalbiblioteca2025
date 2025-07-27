@@ -31,7 +31,8 @@ class PaginaRecursos extends Component
         'selectedUsuarios' => ['except' => []],
     ];
     
-    #[Layout('components.layouts.publico_layout')]
+    #[Layout('components.layouts.publico_layout2')]
+    //#[Layout('components.layouts.publico_layout')]
     public function render()
     {
         // Obtener los datos para poblar los filtros

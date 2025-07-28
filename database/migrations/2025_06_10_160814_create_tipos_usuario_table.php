@@ -15,6 +15,9 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('nombre', 50);
             $table->text('descripcion')->nullable();
+            $table->string('color_fondo', 15);
+            $table->string('color_texto', 15);
+             $table->string('siglas', 7);                
             $table->boolean('activo')->nullable()->default(true);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent();

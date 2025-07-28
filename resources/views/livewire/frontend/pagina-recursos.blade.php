@@ -20,7 +20,7 @@
 
                         <div class="mt-4">
                             <h3 class="fw-semibold text-dark small mb-2">POR ORDEN ALFABÉTICO</h3>
-                            <div class="card-body  d-grid gap-1"  style="grid-template-columns: repeat(6, 1fr);">
+                            <div class="card-body d-grid gap-1"  style="grid-template-columns: repeat(6, 1fr);">
                                 @foreach(range('A', 'Z') as $letter)
                                     <a href="#" wire:click.prevent="setLetter('{{ $letter }}')" class="btn btn-outline-secondary alpha-btn {{ $searchLetter == $letter ? 'active' : '' }}">{{ $letter }}</a>
                                 @endforeach
@@ -111,7 +111,7 @@
 
             <!-- Columna de Contenido (Derecha) -->
             <main class="col-lg-9">
-                <div id="resource-list" class="d-flex flex-column gap-4">
+                <div id="resource-list" class="row row-cols-2">
                     
                     <!-- Tarjeta de Recurso 1 -->
                     @forelse($recursos as $recurso)
@@ -144,7 +144,7 @@
                                         <span class="tag bg-info-subtle text-info-emphasis">Adm</span>
                                         <span class="tag bg-danger-subtle text-danger-emphasis">Der</span>
                                         @foreach($recurso->areasConocimiento as $area)
-                                            <span class="tag bg-danger-subtle text-danger-emphasis">{{ $area->nombre }}</span>
+                                            <span class="tag bg-danger-subtle text-danger-emphasis">{{ Str::limit($area->nombre, 3,'') }}</span>
                                         @endforeach
                                     </div>
                                     <div>

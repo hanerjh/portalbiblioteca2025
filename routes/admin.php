@@ -13,6 +13,7 @@ use App\Livewire\Admin\GestionMenus;
 use App\Livewire\Admin\GestionRecursos;
 use App\Livewire\Admin\GestionSecciones;
 use App\Livewire\Admin\RecursosSortable;
+use App\Livewire\Admin\GestionTipoUsuario;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -37,17 +38,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/documentos', GestionDocumentos::class)->name('documentos.index');
     Route::get('/material-apoyo', GestionMaterialApoyo::class)->name('material.index');
     Route::get('/secciones', GestionSecciones::class)->name('secciones.index');
+    Route::get('/recursosorteable', RecursosSortable::class)->name('recursosorteable.index');
 
      // --- Rutas de Configuración y Categorías ---
     Route::get('/categorias-publicaciones', GestionCategoriasPublicacion::class)->name('categorias.publicacion.index');
     Route::get('/categorias-eventos', GestionCategoriasEvento::class)->name('categorias.evento.index');
     Route::get('/categorias-material', GestionCategoriasMaterial::class)->name('categorias.material.index');
+    Route::get('/categorias-usuario', GestionTipoUsuario::class)->name('categorias.tipousuario.index');
 
     // --- Rutas de Menús ---
     Route::get('/menus', GestionMenus::class)->name('menus.index');
     Route::get('/menus/{menu}/items', GestionMenuItems::class)->name('menus.items.index');
 
-    Route::get('/recursosorteable', RecursosSortable::class)->name('recursosorteable.index');
 
 //Auth::routes();
 

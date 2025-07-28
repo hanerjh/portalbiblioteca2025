@@ -10,7 +10,7 @@ class TipoUsuario extends Model
      use HasFactory;
     protected $table = 'tipos_usuario';
     public $timestamps = false;
-    protected $fillable = ['nombre', 'descripcion', 'activo'];
+    protected $fillable = ['nombre', 'descripcion','color_fondo','color_texto','siglas', 'activo'];
 
     public function recursosDigitales()
     {

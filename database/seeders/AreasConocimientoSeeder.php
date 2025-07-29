@@ -15,12 +15,12 @@ class AreasConocimientoSeeder extends Seeder
     {
         //
         DB::table('areas_conocimiento')->insert([
-            ['nombre' => 'Ciencias Naturales', 'codigo' => '1'],
-            ['nombre' => 'Ingeniería y Tecnología', 'codigo' => '2'],
-            ['nombre' => 'Ciencias Médicas y de la Salud', 'codigo' => '3'],
-            ['nombre' => 'Ciencias Agrícolas', 'codigo' => '4'],
-            ['nombre' => 'Ciencias Sociales', 'codigo' => '5'],
-            ['nombre' => 'Humanidades', 'codigo' => '6'],
+            ['nombre' => 'Ciencias Naturales', 'color_fondo' => '1'],
+            ['nombre' => 'Ingeniería y Tecnología', 'color_fondo' => '2'],
+            ['nombre' => 'Ciencias Médicas y de la Salud', 'color_fondo' => '3'],
+            ['nombre' => 'Ciencias Agrícolas', 'color_fondo' => '4'],
+            ['nombre' => 'Ciencias Sociales', 'color_fondo' => '5'],
+            ['nombre' => 'Humanidades', 'color_fondo' => '6'],
         ]);
     }
 }

@@ -83,12 +83,26 @@
                         <div class="mt-4">
                             <h3 class="fw-semibold text-dark small mb-2">TIPO DE ACCESO</h3>
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
-                                 @foreach($selectedAccesos as $acceso)
+                               {{--  @foreach($selectedAccesos as $acceso)                                
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="{{ $acceso->id }}" id="{{ $acceso->id }}" wire:model.live="selectedAccesos">
-                                    <label class="form-check-label small" for="{{ $acceso->id }}"><span class="dot" style="background-color: #3b82f6;"></span>{{ $acceso->nombre }}</label>
+                                    <label class="form-check-label small" for="{{ $acceso->id }}"><span class="dot" style="background-color: #3b82f6;"></span>{{ $acceso->tipo_acceso }}</label>
                                 </div>
-                               @endforeach
+                               @endforeach --}}
+                               <li class="list-group-item">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Acceso abierto" id="acceso_abierto" wire:model.live="selectedAccesos">
+                            <label class="form-check-label" for="acceso_libre">Acceso libre</label>
+                        </div>
+                         <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="suscripcion" id="acceso_suscripcion" wire:model.live="selectedAccesos">
+                            <label class="form-check-label" for="acceso_suscripcion">Suscripción</label>
+                        </div>
+                         <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="restringido" id="acceso_restringido" wire:model.live="selectedAccesos">
+                            <label class="form-check-label" for="acceso_restringido">Restringido</label>
+                        </div>
+                    </li>
                             </div>
                         </div>
 
@@ -141,18 +155,16 @@
                                     </div>
                                     <div>
                                         <p class="text-muted mb-0" style="font-size: 0.7rem;">Área del conocimiento</p>
-                                        <span class="tag bg-info-subtle text-info-emphasis">Adm</span>
-                                        <span class="tag bg-danger-subtle text-danger-emphasis">Der</span>
+                                       
                                         @foreach($recurso->areasConocimiento as $area)
-                                            <span class="tag bg-danger-subtle text-danger-emphasis">{{ Str::limit($area->nombre, 3,'') }}</span>
+                                            <span class="tag" style="background-color: {{ $area->color_fondo }}; color: {{ $area->color_texto }}; " title="{{ $area->nombre }}">{{ $area->siglas }}</span>
                                         @endforeach
                                     </div>
                                     <div>
                                         <p class="text-muted mb-0" style="font-size: 0.7rem;">Tipo de perfil</p>
-                                        <span class="tag bg-success-subtle text-success-emphasis">Activos</span>
-                                        <span class="tag bg-secondary-subtle text-secondary-emphasis">Egresados</span>
+                                        
                                           @foreach($recurso->tiposUsuario as $usuario)
-                                            <span class="tag bg-secondary-subtle text-secondary-emphasis">{{ $usuario->nombre }}</span>
+                                            <span class="tag" style="background-color: {{ $usuario->color_fondo }}; color: {{ $usuario->color_texto }}; ">{{ $usuario->siglas }}</span>
                                           @endforeach
                                     </div>
                                 </div>

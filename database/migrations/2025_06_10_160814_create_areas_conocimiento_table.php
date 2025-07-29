@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('areas_conocimiento', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('nombre', 100);
-            $table->string('codigo', 20)->nullable();
+            $table->string('color_fondo', 20)->nullable();
+            $table->string('color_texto', 20)->nullable();
+            $table->string('siglas', 7)->nullable();
             $table->integer('area_padre_id')->nullable()->index('area_padre_id');
             $table->text('descripcion')->nullable();
             $table->boolean('activa')->nullable()->default(true);

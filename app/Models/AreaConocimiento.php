@@ -10,7 +10,7 @@ class AreaConocimiento extends Model
     use HasFactory;
     protected $table = 'areas_conocimiento';
     public $timestamps = false;
-    protected $fillable = ['nombre', 'codigo', 'area_padre_id', 'descripcion', 'activa'];
+    protected $fillable = ['nombre', 'color_fondo','color_texto','siglas', 'area_padre_id', 'descripcion', 'activa'];
 
     public function parent()
     {

@@ -1,5 +1,5 @@
 <?php
-
+use App\Livewire\Admin\GestionAreaConocimiento;
 use App\Livewire\Admin\GestionCategoriasEvento;
 use App\Livewire\Admin\GestionCategoriasMaterial;
 use App\Livewire\Admin\GestionCategoriasPublicacion;
@@ -45,6 +45,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/categorias-eventos', GestionCategoriasEvento::class)->name('categorias.evento.index');
     Route::get('/categorias-material', GestionCategoriasMaterial::class)->name('categorias.material.index');
     Route::get('/categorias-usuario', GestionTipoUsuario::class)->name('categorias.tipousuario.index');
+    Route::get('/area-conocimiento', GestionAreaConocimiento::class)->name('areaconocimiento.index');
 
     // --- Rutas de Menús ---
     Route::get('/menus', GestionMenus::class)->name('menus.index');

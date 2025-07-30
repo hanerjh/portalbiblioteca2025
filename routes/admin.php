@@ -14,6 +14,7 @@ use App\Livewire\Admin\GestionRecursos;
 use App\Livewire\Admin\GestionSecciones;
 use App\Livewire\Admin\RecursosSortable;
 use App\Livewire\Admin\GestionTipoUsuario;
+use App\Livewire\Admin\GestionProgramaAcademico;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/categorias-material', GestionCategoriasMaterial::class)->name('categorias.material.index');
     Route::get('/categorias-usuario', GestionTipoUsuario::class)->name('categorias.tipousuario.index');
     Route::get('/area-conocimiento', GestionAreaConocimiento::class)->name('areaconocimiento.index');
+    Route::get('/programa-academico', GestionProgramaAcademico::class)->name('programa.academico.index');
 
     // --- Rutas de Menús ---
     Route::get('/menus', GestionMenus::class)->name('menus.index');

@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('programas_academicos', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('nombre', 150);
-            $table->string('codigo', 20)->nullable();
+            $table->string('color_fondo', 20)->nullable();
+            $table->string('color_texto', 20)->nullable();
+            $table->string('siglas', 7)->nullable();
             $table->string('facultad', 100)->nullable();
             $table->enum('nivel', ['Pregrado', 'Posgrado', 'Maestria', 'Doctorado'])->nullable();
             $table->boolean('activo')->nullable()->default(true);

@@ -10,7 +10,7 @@ class ProgramaAcademico extends Model
     use HasFactory;
     protected $table = 'programas_academicos';
     public $timestamps = false;
-    protected $fillable = ['nombre', 'codigo', 'facultad', 'nivel', 'activo'];
+    protected $fillable = ['nombre', 'color_fondo','color_texto','siglas', 'facultad', 'nivel', 'activo'];
     
     public function recursosDigitales()
     {

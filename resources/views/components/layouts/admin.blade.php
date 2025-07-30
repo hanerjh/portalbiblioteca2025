@@ -80,8 +80,10 @@
                         <li><a href="{{ route('categorias.publicacion.index') }}" class="nav-link text-white small {{ request()->routeIs('categorias.publicacion.index') ? 'active' : '' }}">Cat. Publicaciones</a></li>
                         <li><a href="{{ route('categorias.evento.index') }}" class="nav-link text-white small {{ request()->routeIs('categorias.evento.index') ? 'active' : '' }}">Cat. Eventos</a></li>
                         <li><a href="{{ route('categorias.material.index') }}" class="nav-link text-white small {{ request()->routeIs('categorias.material.index') ? 'active' : '' }}">Cat. Material Apoyo</a></li>
-                         <li><a href="{{ route('categorias.tipousuario.index') }}" class="nav-link text-white small {{ request()->routeIs('categorias.tipousuario.index') ? 'active' : '' }}">Cat. Usuario</a></li>
-                        
+                        <li><a href="{{ route('categorias.tipousuario.index') }}" class="nav-link text-white small {{ request()->routeIs('categorias.tipousuario.index') ? 'active' : '' }}">Categ. Usuario</a></li>
+                        <li><a href="{{ route('areaconocimiento.index') }}" class="nav-link text-white small {{ request()->routeIs('areaconocimiento.index') ? 'active' : '' }}">Cat área Conocimiento</a></li>
+                        <li><a href="{{ route('programa.academico.index') }}" class="nav-link text-white small {{ request()->routeIs('programa.academico.index') ? 'active' : '' }}">Programa Académico</a></li>
+                    
                     </ul>
                 </div>
             </li>

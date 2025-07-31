@@ -5,6 +5,7 @@ namespace App\Livewire\Frontend;
 use Livewire\Component;
 use App\Models\RecursoDigital;
 use App\Models\CategoriaRecurso;
+use App\Models\ProgramaAcademico;
 use App\Models\AreaConocimiento;
 use App\Models\TipoUsuario;
 use Livewire\WithPagination;
@@ -21,6 +22,7 @@ class PaginaRecursos extends Component
     public $selectedAreas = [];
     public $selectedAccesos = [];
     public $selectedUsuarios = [];
+    public $selectedProg = [];
 
     protected $paginationTheme = 'bootstrap';
     protected $queryString = [
@@ -29,6 +31,7 @@ class PaginaRecursos extends Component
         'selectedAreas' => ['except' => []],
         'selectedAccesos' => ['except' => []],
         'selectedUsuarios' => ['except' => []],
+        'selectedProg' => ['except' => []],
     ];
     
     #[Layout('components.layouts.publico_layout2')]
@@ -40,11 +43,12 @@ class PaginaRecursos extends Component
         $areas_conocimiento = AreaConocimiento::where('activa', true)->get();
         $tipos_usuario = TipoUsuario::where('activo', true)->get();
         $recursos_destacados = RecursoDigital::where('activo', true)->where('destacado', true)->take(5)->get();
+        $programa = ProgramaAcademico::where('activo', true)->get();
 
         // Query base para los recursos
         $query = RecursoDigital::query()
             ->where('activo', true)
-            ->with(['categoria', 'areasConocimiento', 'tiposUsuario']);
+            ->with(['categoria', 'areasConocimiento', 'tiposUsuario','programasAcademicos']);
 
         // Aplicar filtros
         $this->applyFilters($query);
@@ -57,6 +61,7 @@ class PaginaRecursos extends Component
             'areas_conocimiento' => $areas_conocimiento,
             'tipos_usuario' => $tipos_usuario,
             'recursos_destacados' => $recursos_destacados,
+            'programas' => $programa,
         ]);
     }
     
@@ -95,6 +100,13 @@ class PaginaRecursos extends Component
         if (!empty($this->selectedUsuarios)) {
             $query->whereHas('tiposUsuario', function ($q) {
                 $q->whereIn('tipos_usuario.id', $this->selectedUsuarios);
+            });
+        }
+
+        // Filtro por tipo de usuario (relación many-to-many)
+        if (!empty($this->selectedProg)) {
+            $query->whereHas('programasAcademicos', function ($q) {
+                $q->whereIn('programas_academicos.id', $this->selectedProg);
             });
         }
     }

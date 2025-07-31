@@ -28,34 +28,20 @@
                         </div>
 
                         <div class="mt-4">
-                            <h3 class="fw-semibold text-dark small mb-2">POR FACULTAD</h3>
+                            <h3 class="fw-semibold text-dark small mb-2">POR PROGRAMA ACADÉMICO</h3>
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
+                                  @foreach($programas as $pg)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="administracion-empresas" id="fac1">
-                                    <label class="form-check-label small" for="fac1"><span class="dot" style="background-color: #3b82f6;"></span>Administración de Empresas</label>
+                                    <input class="form-check-input" type="checkbox" value="{{ $pg->id }}" id="fac{{ $pg->id }}" wire:model.live="selectedProg">
+                                    <label class="form-check-label small" for="fac{{ $pg->id }}"><span class="dot" style="background-color:{{ $pg->color_fondo }}"></span>{{$pg->nombre}}</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="administracion-empresas-turisticas" id="fac2">
-                                    <label class="form-check-label small" for="fac2"><span class="dot" style="background-color: #a855f7;"></span>Adm. Empresas Turísticas</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="ciencias-educacion" id="fac3">
-                                    <label class="form-check-label small" for="fac3"><span class="dot" style="background-color: #f97316;"></span>Ciencias de la Educación</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="ciencias-sociales-humanas" id="fac4">
-                                    <label class="form-check-label small" for="fac4"><span class="dot" style="background-color: #ef4444;"></span>Ciencias Sociales y Humanas</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="comunicacion-social-periodismo" id="fac5">
-                                    <label class="form-check-label small" for="fac5"><span class="dot" style="background-color: #14b8a6;"></span>Comunicación Social</label>
-                                </div>
+                                  @endforeach
                             </div>
                         </div>
 
                          <!-- Filtro por Tipo de Recurso -->
                          <div class="mt-4">
-                            <h3 class="fw-semibold text-dark small mb-2">TIPO DE RECURSIS</h3>
+                            <h3 class="fw-semibold text-dark small mb-2">TIPO DE RECURSOS</h3>
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
                                  @foreach($tipos_recurso as $tipo)
                                 <div class="form-check">
@@ -149,15 +135,18 @@
                                 <p class="fw-semibold mb-1">Convenciones</p>
                                 <div class="d-flex flex-wrap gap-3">
                                     <div>
-                                        <p class="text-muted mb-0" style="font-size: 0.7rem;">Facultad</p>
-                                        <span class="dot" style="background-color: #3b82f6;"></span>
-                                        <span class="dot" style="background-color: #ef4444;"></span>
+                                        <p class="text-muted mb-0" style="font-size: 0.7rem;">Programas</p>
+                                        @foreach ($recurso->programasAcademicos as $pg )
+                                        <span class="tag" style="background-color: {{ $pg->color_fondo }}; color: {{ $pg->color_texto }}; " title="{{ $pg->nombre }}">{{ $pg->siglas }}</span>
+                                                                                   
+                                        @endforeach
                                     </div>
                                     <div>
                                         <p class="text-muted mb-0" style="font-size: 0.7rem;">Área del conocimiento</p>
                                        
                                         @foreach($recurso->areasConocimiento as $area)
-                                            <span class="tag" style="background-color: {{ $area->color_fondo }}; color: {{ $area->color_texto }}; " title="{{ $area->nombre }}">{{ $area->siglas }}</span>
+                                            <span class="dot" style="background-color: {{ $area->color_fondo }}" title="{{ $area->nombre }}"></span>
+                                            
                                         @endforeach
                                     </div>
                                     <div>

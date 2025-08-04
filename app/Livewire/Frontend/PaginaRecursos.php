@@ -48,12 +48,14 @@ class PaginaRecursos extends Component
         // Query base para los recursos
         $query = RecursoDigital::query()
             ->where('activo', true)
-            ->with(['categoria', 'areasConocimiento', 'tiposUsuario','programasAcademicos']);
+            ->with(['categoria', 'areasConocimiento', 'tiposUsuario','programasAcademicos','materialesApoyo']);
+            // Aplicar filtros
+            $this->applyFilters($query);
+            
+            $recursos = $query->orderBy('titulo')->paginate(6);
+           
 
-        // Aplicar filtros
-        $this->applyFilters($query);
 
-        $recursos = $query->orderBy('titulo')->paginate(10);
 
         return view('livewire.frontend.pagina-recursos', [
             'recursos' => $recursos,

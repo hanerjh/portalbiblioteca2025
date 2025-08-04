@@ -39,6 +39,7 @@
     @livewireStyles
 </head>
 <body>
+    
     {{-- Aquí puedes agregar el header/navbar de tu sitio público --}}
     
     <main class="container my-5">

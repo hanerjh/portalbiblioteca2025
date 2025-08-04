@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Búsqueda de Recursos Digitales - Bootstrap</title>
+    <title>Búsqueda de Recursos Digitales - Bootstraps</title>
     
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -59,13 +59,33 @@
         .card {
             border: 1px solid #e5e7eb;
         }
-    </style>
 
+        .accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+  }
+
+   .list-group-item:hover{
+    background-color: #d1e7dd;
+     color: #0a3622;
+     border-color: #a3cfbb;
+  } 
+    </style>
+@vite(['resources/css/custom.css', 'resources/css/style.css'])
     @livewireStyles
 </head>
 <body>
     {{-- Aquí puedes agregar el header/navbar de tu sitio público --}}
-    
+@include('partials.menuPrincipal')
+
+<div class="jumbotron jumbotron-fluid py-5 bg-dark text-white">
+  <div class="container">
+    <h1 class="mt-5">Recursos Electronicos</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  </div>
+</div>
+
+   
     
         {{ $slot }}
     
@@ -75,7 +95,9 @@
   
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <script>
+        $('.collapse').collapse()
+    </script>
  <!--    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('search-input');
@@ -150,7 +172,7 @@
             applyFilters();
         });
     </script> -->
-
+@include('partials.footerunpa')
 </body>
 </html>
 

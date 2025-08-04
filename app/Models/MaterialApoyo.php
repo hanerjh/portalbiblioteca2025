@@ -53,7 +53,7 @@ class MaterialApoyo extends Model
 
     public function recursosDigitales()
     {
-        return $this->belongsTo(RecursoDigital::class, 'recurso_id');
+        return $this->belongsTo(RecursoDigital::class, 'id');
     }
 
 //      public function recursosDigitales()

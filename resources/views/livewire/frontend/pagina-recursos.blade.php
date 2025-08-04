@@ -1,13 +1,14 @@
 
 
-    <div class="container my-4 my-md-5">
+   <div>
+   <div class="container my-4 my-md-5">
         <div class="row g-4">
 
             <!-- Columna de Filtros (Izquierda) -->
             <aside class="col-lg-3">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h5 fw-bold text-dark filter-header ps-2 mb-4">BÚSQUEDA DE RECURSOS DIGITALES</h2>
+                        <h2 class="h5 fw-bold text-dark filter-header ps-2 mb-4">BÚSQUEDA DE RECURSOS ELECTRÓNICOS</h2>
                         <a href="#" id="clear-filters" class="small text-secondary text-decoration-none">LIMPIAR BÚSQUEDA</a>
                         
                         <div class="mt-4">
@@ -27,22 +28,34 @@
                             </div>
                         </div>
 
-                        <div class="mt-4">
-                            <h3 class="fw-semibold text-dark small mb-2">POR PROGRAMA ACADÉMICO</h3>
-                            <div id="faculty-filter" class="d-flex flex-column gap-2">
-                                  @foreach($programas as $pg)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{ $pg->id }}" id="fac{{ $pg->id }}" wire:model.live="selectedProg">
-                                    <label class="form-check-label small" for="fac{{ $pg->id }}"><span class="dot" style="background-color:{{ $pg->color_fondo }}"></span>{{$pg->nombre}}</label>
+                         <label for="search-input" class="fw-semibold text-dark small ">POR FILTROS</label>
+                        <div class="mt-4 d-grid ">
+                                     <a class="btn  btn-outline-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <h3 class="fw-semibold  small mb-2">
+                                POR PROGRAMA ACADÉMICO  
+                            </h3>
+                            </a>
+                            <div class="collapse" id="collapseExample">
+                                <div id="faculty-filter" class="d-flex flex-column gap-2">
+                                    @foreach($programas as $pg)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="{{ $pg->id }}" id="fac{{ $pg->id }}" wire:model.live="selectedProg">
+                                        <label class="form-check-label small" for="fac{{ $pg->id }}"><span class="dot" style="background-color:{{ $pg->color_fondo }}"></span>{{$pg->nombre}}</label>
+                                    </div>
+                                    @endforeach
                                 </div>
-                                  @endforeach
                             </div>
                         </div>
 
                          <!-- Filtro por Tipo de Recurso -->
-                         <div class="mt-4">
-                            <h3 class="fw-semibold text-dark small mb-2">TIPO DE RECURSOS</h3>
-                            <div id="faculty-filter" class="d-flex flex-column gap-2">
+                         <div class="mt-2 d-grid">
+                            <a class="btn  btn-outline-success" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <h3 class="fw-semibold small ">
+                                TIPO DE RECURSOS
+                            </h3>
+                            </a>
+                            <div class="collapse" id="collapseExample2">
+                            <div id="faculty-filter" class="d-flex flex-column">
                                  @foreach($tipos_recurso as $tipo)
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="{{ $tipo->id }}" id="tipo_{{ $tipo->id }}" wire:model.live="selectedTipos">
@@ -50,11 +63,15 @@
                                 </div>
                                @endforeach
                             </div>
+                            </div>
                         </div>
 
                          <!-- Filtro por Área de Conocimiento -->
-                            <div class="mt-4">
-                            <h3 class="fw-semibold text-dark small mb-2">POR AREA DE CONOCMIENTO</h3>
+                            <div class="mt-2 d-grid">
+                            <a class="btn  btn-outline-success" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                 <h3 class="fw-semibold small mb-2">POR AREA DE CONOCMIENTO</h3>
+                            </a>
+                            <div class="collapse" id="collapseExample3">
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
                                  @foreach($areas_conocimiento as $area)
                                 <div class="form-check">
@@ -63,11 +80,16 @@
                                 </div>
                                @endforeach
                             </div>
+                            </div>
                         </div>
 
                         <!-- Filtro por Tipo de Acceso -->
-                        <div class="mt-4">
-                            <h3 class="fw-semibold text-dark small mb-2">TIPO DE ACCESO</h3>
+                        <div class="mt-2 d-grid">
+                            <a class="btn  btn-outline-success" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
+
+                            <h3 class="fw-semibold small mb-2">TIPO DE ACCESO</h3></a>
+
+                            <div class="collapse" id="collapseExample4">
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
                                {{--  @foreach($selectedAccesos as $acceso)                                
                                 <div class="form-check">
@@ -90,11 +112,15 @@
                         </div>
                     </li>
                             </div>
+                              </div>
                         </div>
 
                          <!-- Filtro por Acceso por tipo de estudiante-->
-                        <div class="mt-4">
-                            <h3 class="fw-semibold text-dark small mb-2">TIPO DE USUARIO</h3>
+                        <div class="mt-2 d-grid">
+                             <a class="btn  btn-outline-success" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
+
+                            <h3 class="fw-semibold small mb-2">TIPO DE USUARIO</h3></a>
+                             <div class="collapse" id="collapseExample5">
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
                                  @foreach($tipos_usuario as $usuario)
                                 <div class="form-check">
@@ -103,6 +129,7 @@
                                 </div>
                                @endforeach
                             </div>
+                        </div>
                         </div>
 
                     </div>
@@ -128,16 +155,16 @@
                             </div>
                             <hr class="my-3">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="small text-secondary"><i class="bi bi-unlock-fill me-2"></i>Recurso digital de acceso abierto {{ $recurso->categoria->nombre }}</div>
+                                <div class="small text-secondary"><i class="bi {{$recurso->tipo_acceso=='Acceso abierto' ? 'bi-unlock-fill':'bi-lock-fill'}}  me-2"></i>Recurso digital de {{$recurso->tipo_acceso}} </div>
                                 <a href="{{ $recurso->url }}" class="btn btn-brand btn-sm fw-semibold">Ingresar</a>
                             </div>
                             <div class="mt-3 small">
                                 <p class="fw-semibold mb-1">Convenciones</p>
                                 <div class="d-flex flex-wrap gap-3">
-                                    <div>
+                                    <div class="col-4">
                                         <p class="text-muted mb-0" style="font-size: 0.7rem;">Programas</p>
                                         @foreach ($recurso->programasAcademicos as $pg )
-                                        <span class="tag" style="background-color: {{ $pg->color_fondo }}; color: {{ $pg->color_texto }}; " title="{{ $pg->nombre }}">{{ $pg->siglas }}</span>
+                                        <span class="badge" style="background-color: {{ $pg->color_fondo }}; color: {{ $pg->color_texto }}; font-size: 0.6rem; " title="{{ $pg->nombre }}">{{ $pg->siglas }}</span>
                                                                                    
                                         @endforeach
                                     </div>
@@ -158,7 +185,60 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
+                            
+                        {{-- MENU TUTORIALES --}}
+                        <div class="accordion accordion-flush " id="accordionFlushExample">
+                            <div class="accordion-item bg-secundary-dark ">
+                                <h2 class="accordion-header ">
+                                <button  class="accordion-button collapsed bg-light mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $recurso->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $recurso->id }}">
+                                  <i class="bi bi-archive-fill mx-2"></i> Recursos de apoyo {{  $recurso->materialesApoyo->count() }}
+                                </button>
+                                </h2>
+                                <div id="flush-collapse{{ $recurso->id }}" class="accordion-collapse collapse " data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body px-1 py-2">
+                                    <div class="list-group list-group-flush overflow-auto" style="max-height: 100px;">
+
+                                      @foreach ( $recurso->materialesApoyo as $material )
+                                          
+                                             @if(in_array($material->tipo, ['manual', 'guia','documento']))
+                                                <a href=" {{$material->url_recurso}}" class="list-group-item list-group-item-action ">  
+                                                <i class="bi bi-filetype-pdf mx-2"></i>
+                                                    {{$material->titulo}}
+                                                </a>
+                                            @elseif($material->tipo === 'infografia')
+                                                <a href="{{$material->url_recurso}}" class="list-group-item list-group-item-action">  
+                                                   <i class="bi bi-file-richtext mx-2"></i>
+                                                    {{$material->titulo}}
+                                                </a>
+                                            @elseif($material->tipo === 'videotutorial')
+                                                 <a href="{{$material->url_recurso}}" class="list-group-item list-group-item-action">  
+                                                    <i class="bi bi-camera-video mx-2"></i>
+                                                        {{$material->titulo}}
+                                                    </a>
+                                            @else
+                                            <a href="{{$material->url_recurso}}" class="list-group-item list-group-item-action">  
+                                                    <i class="bi bi-file-earmark-text mx-2"></i> 
+                                                    {{$material->titulo}}
+                                                </a>
+                                            @endif 
+                                       
+
+                                     @endforeach  
+
+                                     
+
+                                    
+
+                                    </div>
+
+                                   
+  
+                                </div>
+                                </div>
+                            </div>
                         </div>
+                    {{-- MENU TUTORIALES --}}
                     </div>
                      @empty
                     <div class="alert alert-warning text-center">
@@ -167,6 +247,7 @@
                     @endforelse
 
                     <div class="mt-4">
+                        
                         {{ $recursos->links() }}
                     </div>
 
@@ -177,3 +258,4 @@
             </main>
         </div>
     </div>
+</div>

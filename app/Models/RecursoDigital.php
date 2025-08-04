@@ -37,6 +37,6 @@ class RecursoDigital extends Model
     
     public function materialesApoyo()
     {
-        return $this->belongsToMany(MaterialApoyo::class, 'recurso_materiales', 'recurso_id', 'material_id');
+        return $this->hasMany(MaterialApoyo::class, 'recurso_id');
     }
 }

@@ -35,7 +35,7 @@
                                 POR PROGRAMA ACADÉMICO  
                             </h3>
                             </a>
-                            <div class="collapse" id="collapseExample">
+                            <div class="collapse show" id="collapseExample">
                                 <div id="faculty-filter" class="d-flex flex-column gap-2">
                                     @foreach($programas as $pg)
                                     <div class="form-check">
@@ -54,7 +54,7 @@
                                 TIPO DE RECURSOS
                             </h3>
                             </a>
-                            <div class="collapse" id="collapseExample2">
+                            <div class="collapse show" id="collapseExample2">
                             <div id="faculty-filter" class="d-flex flex-column">
                                  @foreach($tipos_recurso as $tipo)
                                 <div class="form-check">
@@ -71,7 +71,7 @@
                             <a class="btn  btn-outline-success" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
                                  <h3 class="fw-semibold small mb-2">POR AREA DE CONOCMIENTO</h3>
                             </a>
-                            <div class="collapse" id="collapseExample3">
+                            <div class="collapse show" id="collapseExample3">
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
                                  @foreach($areas_conocimiento as $area)
                                 <div class="form-check">
@@ -89,7 +89,7 @@
 
                             <h3 class="fw-semibold small mb-2">TIPO DE ACCESO</h3></a>
 
-                            <div class="collapse" id="collapseExample4">
+                            <div class="collapse show" id="collapseExample4">
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
                                {{--  @foreach($selectedAccesos as $acceso)                                
                                 <div class="form-check">
@@ -120,7 +120,7 @@
                              <a class="btn  btn-outline-success" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
 
                             <h3 class="fw-semibold small mb-2">TIPO DE USUARIO</h3></a>
-                             <div class="collapse" id="collapseExample5">
+                             <div class="collapse show" id="collapseExample5">
                             <div id="faculty-filter" class="d-flex flex-column gap-2">
                                  @foreach($tipos_usuario as $usuario)
                                 <div class="form-check">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Búsqueda de Recursos Digitales</title>
+    <title>@yield('titulo')</title>
     
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -65,11 +65,7 @@
     outline: none;
   }
 
-   .list-group-item:hover{
-    background-color: #d1e7dd;
-     color: #0a3622;
-     border-color: #a3cfbb;
-  } 
+  
     </style>
 @vite(['resources/css/custom.css', 'resources/css/style.css'])
     @livewireStyles
@@ -78,18 +74,23 @@
     {{-- Aquí puedes agregar el header/navbar de tu sitio público --}}
 @include('partials.menuPrincipal')
 
+
 <div class="jumbotron jumbotron-fluid py-5 bg-dark text-white">
   <div class="container">
-    <h1 class="mt-5">Recursos Electronicos</h1>
+    <h1 class="mt-5">@yield('titulo_page')</h1>
     <p class="lead">
-        En esta sección encontrarás una recopilación de herramientas, plataformas digitales, bibliotecas virtuales con materiales interactivos diseñados para apoyar tu aprendizaje, investigación y desarrollo académico.
+        @yield('desc_page')
     </p>
   </div>
 </div>
 
-   
+<div class="container">
+{{ $slot }}
+</div>
+ 
     
-        {{ $slot }}
+       
+        
     
 
     {{-- Aquí puedes agregar el footer de tu sitio público --}}

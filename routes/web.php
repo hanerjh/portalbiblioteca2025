@@ -8,6 +8,9 @@ use App\Models\CategoriaEvento;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Livewire\Frontend\PaginaRecursos; 
+use App\Livewire\Frontend\BlogIndex; // <-- Nuevo componente para el listado del blog
+use App\Livewire\Frontend\BlogPost;  // <-- Nuevo componente para la noticia individual
+
 
 Route::resource('/inicio', principalwebController::class);
 /** Ruta de ingreso a paginas, mediante id */
@@ -25,6 +28,9 @@ Route::get('/', function () {
 // Ruta pública para ver los recursos
 Route::get('/recursos-electronicos', PaginaRecursos::class)->name('recursos.public.index');
 
+// --- NUEVAS RUTAS PARA EL BLOG ---
+Route::get('/noticias', BlogIndex::class)->name('blog.index');
+Route::get('/noticias/{slug}', BlogPost::class)->name('blog.show');
 
 /* Route::get('/publicaciones', GestionPublicaciones::class)->name('publicaciones.index');
 Route::get('/eventos', GestionEventos::class)->name('eventos.index'); */

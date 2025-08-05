@@ -175,12 +175,12 @@ div.cabecera .carousel-caption{
 
 
 /* Plataformas Digital Cards */
-.card {
+.cont-Platform .card {
     border-radius: 0.375rem; /* Standard Bootstrap card radius */
     transition: transform 0.2s ease-in-out, 0.2s ease-in-out;
     position: relative;
 }
-.card:hover {
+.cont-Platform .card:hover {
    transform: translateY(-5px);
    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
@@ -293,7 +293,7 @@ div.cabecera .carousel-caption{
 }
 
 /* Novedades Bibliográficas */
-.card img.card-img-top {
+#novedadesbibliograficas .card img.card-img-top {
     aspect-ratio: 2/3; /* Common book cover aspect ratio */
     object-fit: cover;   
     border-radius: 0.3rem; /* Slight rounding */

@@ -346,7 +346,7 @@
 
                 @isset($data)
                         @forelse ($data as $datakoha)
-                    <div class="col-6 col-md-4 col-lg-2">
+                    <div id="novedadesbibliograficas" class="col-6 col-md-4 col-lg-2">
                        <div class="card h-100 border-0">
                             <a href="https://catalogo.unipacifico.edu.co/cgi-bin/koha/opac-detail.pl?biblionumber={{$datakoha[0]}}"
                                 target="blank" data-toggle="tooltip" data-placement="top" title="{{$datakoha[1]}}"><img

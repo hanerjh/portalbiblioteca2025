@@ -32,13 +32,13 @@ class BlogIndex extends Component
             });
         }
         
-        // Obtener la publicación más reciente para destacarla
+       /*  // Obtener la publicación más reciente para destacarla
         $featuredPost = (clone $query)->latest('fecha_publicacion')->first();
         
         // Obtener las demás publicaciones, excluyendo la destacada si existe
         if ($featuredPost) {
             $query->where('id', '!=', $featuredPost->id);
-        }
+        } */
 
         $posts = $query->latest('fecha_publicacion')->paginate(6);
         
@@ -46,7 +46,7 @@ class BlogIndex extends Component
         $categorias = CategoriaPublicacion::where('activa', true)->get();
 
         return view('livewire.frontend.blog-index', [
-            'featuredPost' => $featuredPost,
+            //'featuredPost' => $featuredPost,
             'posts' => $posts,
             'categorias' => $categorias,
         ]); // Usamos el layout público

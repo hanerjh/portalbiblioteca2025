@@ -150,7 +150,7 @@
     </section>
 
     <!-- Plataformas Digital Section -->
-    <section class="py-5 bg-light">
+    <section  class="py-5 bg-light" style="margin-top: -100px">
         <div class="container">
             <h2 class="text-center fw-bold mb-2">Plataformas Digital</h2>
             <p class="text-center text-muted mb-5">Conéctate con nuestras plataformas para la gestión del conocimiento.

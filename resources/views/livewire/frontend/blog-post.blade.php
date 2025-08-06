@@ -16,7 +16,7 @@
                             Publicado el {{ $post->fecha_publicacion->format('d \d\e F \d\e Y') }} por {{ $post->autor ?? 'Biblioteca' }}
                         </div>
                         <!-- Categoría -->
-                        <a class="badge text-decoration-none" href="{{ route('blog.index', ['categoria' => $post->categoria->slug]) }}" style="background-color: {{ $post->categoria->color }};">
+                        <a class="badge text-decoration-none mb-2" href="{{ route('blog.index', ['categoria' => $post->categoria->slug]) }}" style="background-color: {{ $post->categoria->color }};">
                             {{ $post->categoria->nombre }}
                         </a>
                   

@@ -67,7 +67,7 @@
 
   
     </style>
-@vite(['resources/css/custom.css', 'resources/css/style.css'])
+@vite(['resources/css/custom.css', 'resources/css/style_page.css'])
     @livewireStyles
 </head>
 <body>
@@ -75,7 +75,7 @@
 @include('partials.menuPrincipal')
 
 
-<div class="jumbotron jumbotron-fluid py-5 bg-dark text-white">
+<div class="jumbotron jumbotron-fluid py-5 bg-dark text-white" style="background-image: url('@yield('img')') ;">
   <div class="container">
     <h1 class="mt-5">@yield('titulo_page')</h1>
     <p class="lead">
@@ -101,80 +101,7 @@
     <script>
         $('.collapse').collapse()
     </script>
- <!--    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInput = document.getElementById('search-input');
-            const alphabetContainer = document.getElementById('alphabet-filter');
-            const facultyFilter = document.getElementById('faculty-filter');
-            const resourceCards = document.querySelectorAll('.resource-card');
-            const clearFiltersButton = document.getElementById('clear-filters');
-
-            // --- Generar botones del alfabeto ---
-            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-            let alphabetHTML = '';
-            alphabet.forEach(letter => {
-                alphabetHTML += `<button class="btn btn-outline-secondary alpha-btn" data-letter="${letter}">${letter}</button>`;
-            });
-            alphabetHTML += `<button class="btn btn-outline-secondary alpha-btn active" data-letter="all" style="grid-column: span 7;">TODAS</button>`;
-            alphabetContainer.innerHTML = alphabetHTML;
-            const alphabetButtons = alphabetContainer.querySelectorAll('.alpha-btn');
-
-            // --- Función principal de filtrado ---
-            function applyFilters() {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                const activeLetterBtn = alphabetContainer.querySelector('.alpha-btn.active');
-                const activeLetter = activeLetterBtn ? activeLetterBtn.dataset.letter : 'all';
-                
-                const selectedFaculties = Array.from(facultyFilter.querySelectorAll('input:checked')).map(input => input.value);
-
-                resourceCards.forEach(card => {
-                    const title = card.dataset.title.toLowerCase();
-                    const firstLetter = title.charAt(0).toUpperCase();
-                    const faculties = JSON.parse(card.dataset.faculties || '[]');
-
-                    const matchesSearch = searchTerm === '' || title.includes(searchTerm);
-                    const matchesLetter = activeLetter === 'all' || firstLetter === activeLetter;
-                    const matchesFaculty = selectedFaculties.length === 0 || selectedFaculties.some(sf => faculties.includes(sf));
-
-                    if (matchesSearch && matchesLetter && matchesFaculty) {
-                        card.classList.remove('d-none');
-                    } else {
-                        card.classList.add('d-none');
-                    }
-                });
-            }
-
-            // --- Event Listeners ---
-            searchInput.addEventListener('input', applyFilters);
-
-            alphabetContainer.addEventListener('click', function(e) {
-                if (e.target.classList.contains('alpha-btn')) {
-                    alphabetButtons.forEach(btn => btn.classList.remove('active'));
-                    e.target.classList.add('active');
-                    applyFilters();
-                }
-            });
-
-            facultyFilter.addEventListener('change', applyFilters);
-
-            clearFiltersButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                searchInput.value = '';
-                
-                alphabetButtons.forEach(btn => btn.classList.remove('active'));
-                alphabetContainer.querySelector('[data-letter="all"]').classList.add('active');
-                
-                facultyFilter.querySelectorAll('input:checked').forEach(input => {
-                    input.checked = false;
-                });
-
-                applyFilters();
-            });
-            
-            // Aplicar filtros al cargar la página por si acaso
-            applyFilters();
-        });
-    </script> -->
+ 
 @include('partials.footerunpa')
 </body>
 </html>

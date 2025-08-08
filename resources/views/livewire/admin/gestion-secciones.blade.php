@@ -56,7 +56,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="nombre" class="form-label">Nombre de la Sección</label>
-                                <input type="text" wire:model="nombre" wire:keyup="updatedNombre($event.target.value)" class="form-control">
+                                <input type="text" wire:model="nombre" class="form-control">
                                 @error('nombre') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
                              <div class="col-md-6 mb-3">

@@ -35,10 +35,12 @@ class GestionSecciones extends Component
     public function openModal() { $this->isOpen = true; }
     public function closeModal() { $this->isOpen = false; }
     private function resetInputFields() { $this->reset(); $this->activa = true; $this->template = 'default'; }
-    public function updatedNombre($value) { $this->slug = Str::slug($value); }
+   
 
     public function store()
     {
+        $this->slug = Str::slug($this->nombre);
+
         $this->validate([
             'nombre' => 'required|string|max:100',
             'slug' => 'required|string|max:100|unique:secciones,slug,' . $this->seccion_id,

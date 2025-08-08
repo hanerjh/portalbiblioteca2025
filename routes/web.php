@@ -11,6 +11,7 @@ use App\Livewire\Frontend\PaginaRecursos;
 use App\Livewire\Frontend\BlogIndex; // <-- Nuevo componente para el listado del blog
 use App\Livewire\Frontend\BlogPost;  // <-- Nuevo componente para la noticia individual
 use App\Livewire\Frontend\AboutPage;
+use App\Livewire\Frontend\PageViewer;
 
 Route::resource('/inicio', principalwebController::class);
 /** Ruta de ingreso a paginas, mediante id */
@@ -33,6 +34,9 @@ Route::get('/noticias', BlogIndex::class)->name('blog.index');
 Route::get('/noticias/{slug}', BlogPost::class)->name('blog.show');
 
 Route::get('/nosotros', AboutPage::class)->name('nosotros.show');
+
+// visualizar paginas
+Route::get('/page/{id}', PageViewer::class)->name('page.show');;
 
 /* Route::get('/publicaciones', GestionPublicaciones::class)->name('publicaciones.index');
 Route::get('/eventos', GestionEventos::class)->name('eventos.index'); */

@@ -75,7 +75,7 @@
 @include('partials.menuPrincipal')
 
 
-<div class="jumbotron jumbotron-fluid py-5 bg-dark text-white" style="background-image: url('@yield('img')') ;">
+<div class="jumbotron jumbotron-fluid py-5 bg-dark text-white" style="background-image: url('@yield('img')');">
   <div class="container">
     <h1 class="mt-5">@yield('titulo_page')</h1>
     <p class="lead">

@@ -16,6 +16,10 @@ use App\Livewire\Admin\RecursosSortable;
 use App\Livewire\Admin\GestionTipoUsuario;
 use App\Livewire\Admin\GestionProgramaAcademico;
 
+use App\Livewire\Admin\CreateLayout;
+use App\Livewire\Admin\CreatePages;
+
+
 use Illuminate\Support\Facades\Auth;
 
 // Asume que tienes un layout de administración y un middleware de autenticación 'auth'
@@ -48,6 +52,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/categorias-usuario', GestionTipoUsuario::class)->name('categorias.tipousuario.index');
     Route::get('/area-conocimiento', GestionAreaConocimiento::class)->name('areaconocimiento.index');
     Route::get('/programa-academico', GestionProgramaAcademico::class)->name('programa.academico.index');
+    
+    // creacion de paginas y layouts
+    Route::get('/layouts-create', CreateLayout::class)->name('createlayout.index');
+    Route::get('/pages-create', CreatePages::class)->name('createpages.index');
 
     // --- Rutas de Menús ---
     Route::get('/menus', GestionMenus::class)->name('menus.index');

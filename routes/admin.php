@@ -18,8 +18,7 @@ use App\Livewire\Admin\GestionProgramaAcademico;
 
 use App\Livewire\Admin\CreateLayout;
 use App\Livewire\Admin\CreatePages;
-
-
+use App\Livewire\Admin\GestionUsuarios;
 use Illuminate\Support\Facades\Auth;
 
 // Asume que tienes un layout de administración y un middleware de autenticación 'auth'
@@ -29,13 +28,14 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard'); // Vista del panel de administración
-    })->name('dashboard');
+    Route::get('/publicaciones', function () {
+        return view('admin.publicaciones'); // Vista del panel de administración
+    })->name('publicaciones.index');
 
     
 });
 
+Route::middleware(['auth'])->group(function () {
     // Rutas para cada módulo de gestión
     Route::get('/publicaciones', GestionPublicaciones::class)->name('publicaciones.index');
     Route::get('/eventos', GestionEventos::class)->name('eventos.index');
@@ -52,6 +52,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/categorias-usuario', GestionTipoUsuario::class)->name('categorias.tipousuario.index');
     Route::get('/area-conocimiento', GestionAreaConocimiento::class)->name('areaconocimiento.index');
     Route::get('/programa-academico', GestionProgramaAcademico::class)->name('programa.academico.index');
+
+    // --- NUEVA RUTA DE GESTIÓN DE USUARIOS ---
+    Route::get('/usuarios', GestionUsuarios::class)->name('usuarios');
     
     // creacion de paginas y layouts
     Route::get('/layouts-create', CreateLayout::class)->name('createlayout.index');
@@ -60,6 +63,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // --- Rutas de Menús ---
     Route::get('/menus', GestionMenus::class)->name('menus.index');
     Route::get('/menus/{menu}/items', GestionMenuItems::class)->name('menus.items.index');
+});
 
 
 //Auth::routes();

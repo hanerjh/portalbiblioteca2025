@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\principalwebController;
+use App\Http\Controllers\Auth\LoginController; // <-- Importar el controlador
+use App\Livewire\Frontend\Login; // <-- Componente de Login
+
 use App\Livewire\Admin\GestionEventos;
 use App\Livewire\Admin\GestionPublicaciones;
 use App\Livewire\Admin\Publicacion;
@@ -19,11 +22,15 @@ Route::get('/page/{id}', function (string $id) {
     return 'User '.$id;
 });
 
-Route::get('/home', fn()=> view('home'));
+//Route::get('/home', fn()=> view('home'));
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('welcome');
 })->name('home');
+
+// --- RUTAS DE AUTENTICACIÓN ---
+Route::get('/login', Login::class)->name('login')->middleware('guest'); // Solo para invitados
+Route::post('/logout', [LoginController::class, 'destroy'])->name('logout'); // Para usuarios autenticados
 
 
 // Ruta pública para ver los recursos
@@ -69,5 +76,5 @@ Route::get('categoriaeventos', function(){
     ->middleware(['auth', 'verified'])
     ->name('dashboard'); */
     
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

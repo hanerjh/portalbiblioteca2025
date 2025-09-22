@@ -83,7 +83,7 @@
                         <li><a href="{{ route('categorias.tipousuario.index') }}" class="nav-link text-white small {{ request()->routeIs('categorias.tipousuario.index') ? 'active' : '' }}">Categ. Usuario</a></li>
                         <li><a href="{{ route('areaconocimiento.index') }}" class="nav-link text-white small {{ request()->routeIs('areaconocimiento.index') ? 'active' : '' }}">Cat área Conocimiento</a></li>
                         <li><a href="{{ route('programa.academico.index') }}" class="nav-link text-white small {{ request()->routeIs('programa.academico.index') ? 'active' : '' }}">Programa Académico</a></li>
-                    
+                        <li><a href="{{ route('usuarios') }}" class="nav-link text-white small {{ request()->routeIs('usuarios') ? 'active' : '' }}">Gestionar Usuarios</a></li> <!-- <-- NUEVO ENLACE -->
                     </ul>
                 </div>
             </li>
@@ -95,6 +95,16 @@
                 <i class="bi bi-person-circle fs-4 me-2"></i>
                 <strong>Administrador</strong>
             </a>
+
+              <li class="nav-item">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); this.closest('form').submit();">
+                                    Cerrar Sesión
+                                </a>
+                            </form>
+                    </li>
         </div>
     </div>
 

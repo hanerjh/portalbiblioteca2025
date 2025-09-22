@@ -77,7 +77,7 @@
                         <div class="col-lg-6  mb-lg-0 mt-5">
                             <div class="badge bg-secondary-green mb-2 p-2">{{ strtoupper($publicacion->created_at->translatedFormat('j M')) }}</div>
                             <h1 class="fw-bold">{{$publicacion->titulo}}</h1>
-                            <a href="#" class="btn btn-light btn-lg mt-3">
+                            <a href="noticias/{{$publicacion->slug}}" class="btn btn-light btn-lg mt-3">
                                 Ver más <i class="bi bi-arrow-right-short"></i>
                             </a>
                         </div>
@@ -234,7 +234,7 @@
                                 <div class="card-img-overlay">
                                     <h5 class="card-title "><a href="#">{{ ucfirst($pub->titulo)}}</a></h5>
                                 </div>
-                                <a href="noticias/{{ $pub->id }}" class="stretched-link-icon"><i
+                                <a href="noticias/{{ $pub->slug }}" class="stretched-link-icon"><i
                                         class="bi bi-arrow-right-circle-fill"></i></a>
                             </div>
                         </div>
